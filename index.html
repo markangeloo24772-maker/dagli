@@ -152,7 +152,7 @@
     .post-body {
       color: #000;
       font-size: 10pt;
-      line-height: 1.45;
+      line-height: 1.5;
       white-space: pre-wrap;
       word-break: break-word;
       margin: 8px 0;
@@ -300,8 +300,8 @@
       <strong>&#128204; Panuntunan sa /dagli/ (Flash Fiction):</strong>
       <ul style="margin: 4px 0 0 16px; padding: 0;">
         <li>Siguraduhing maikli, orihinal, at may buong kaisipan ang dagli.</li>
-        <li><strong>Anti-Spam Voting:</strong> Bawat estudyante ay may <strong>5 upvotes lamang sa kabuuan</strong> (1 upvote bawat post). Gamitin nang wasto!</li>
-        <li><strong>Greentext:</strong> Magsimula ng linya gamit ang <code>&gt;</code> para maging berde.</li>
+        <li><strong>Anti-Spam Voting:</strong> Bawat mag-aaral ay may <strong>5 upvotes lamang sa kabuuan</strong> (1 upvote bawat kwento).</li>
+        <li><strong>Greentext:</strong> Magsimula ng linya gamit ang <code>&gt;</code> para maging berde ang teksto.</li>
       </ul>
     </div>
 
@@ -366,26 +366,55 @@
       ─── MGA KABABAGONG DAGLI ───
     </div>
     
-    <!-- SAMPLE PINNED POST -->
+    <!-- SAMPLE PINNED POST (ENSAYMADA) -->
     <div class="post-card sample">
       <div class="post-header">
-        <span class="post-title">Huling Biyahe sa Hatinggabi</span> &nbsp;
-        <span class="post-user">MakataSaKanto</span>
+        <span class="post-title">ENSAYMADA</span> &nbsp;
+        <span class="post-user">Ed Cabudbud</span>
         <span class="badge badge-sample">📌 SAMPLE POST</span>
-        <span class="badge">10-ALMANZOR</span>
-        <span class="badge">Lalaki</span>
-        <span class="post-author-sub">Tunay: [Dela Cruz, J.] &bull; Petsa: Halimbawa</span>
+        <span class="badge">10-Rizal</span>
+        <span class="post-author-sub">Tunay: [Cabudbud, E.] &bull; Petsa: Halimbawa</span>
       </div>
-      <div class="post-body"><span class="greentext">> Alas-dose na ng hatinggabi sa kanto ng España.</span>
-<span class="greentext">> Wala nang bumibiyaheng jeep maliban sa isang lumang Sarao na patay ang ilaw sa loob.</span>
-Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang kanyang palad—at walang sumukli sa akin hanggang sa pagbaba ko.</div>
+      <div class="post-body">Kumakalam na naman ang sikmura kaya naisip kong bumili ng limang pirasong ensaymada.
+
+Umupo ako sa isang kainan habang nagbabasa ng libro.
+
+Nakasabay ko sa mesa ang isang maralitang matanda.
+
+Laki ng gulat ko nang kinuha nito ang unang piraso ng ensaymada sa supot na nasa aking mesa.
+
+Agad kong kinuha ang pangalawang piraso.
+
+Tanging mga ngiti at makinang na tingin lamang ang ibinalik nito sa akin.
+
+Nakaka-irita.
+
+Muli niyang kinuha ang ikatlong piraso nang walang paalam.
+
+Nagmamadali kong kinuha ang pang-apat.
+
+Nanlaki ang aking mga mata nang kinuha pa rin nito ang panlima at huling piraso ng tinapay.
+
+Napansin nito ang pagkayamot sa aking mga mata, kaya hinati ang tinapay at ibinigay sa akin ang kalahati.
+
+Lakas ng loob maghandog, gayong pagkaing hindi naman sa kanya.
+
+Umalis na ang matanda. Hay, buti naman.
+
+Upang mapawi ang galit, umalis na rin ako at lumabas nang walang nangyari.
+
+Habang papalabas ako sa tindahan, tinawag ako ng tindera sa counter.
+
+Nanlumo ako sa aking nakita.
+
+Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       <div class="actions">
-        <span class="action-btn" onclick="sampleUpvote(this)">▲ Upvote (<span class="s-up">12</span>)</span>
-        <span class="action-btn" onclick="sampleHeart(this)">❤️ Puso (<span class="s-heart">8</span>)</span>
+        <span class="action-btn" onclick="sampleUpvote(this)">▲ Upvote (<span class="s-up">15</span>)</span>
+        <span class="action-btn" onclick="sampleHeart(this)">❤️ Puso (<span class="s-heart">10</span>)</span>
         <span class="action-btn" onclick="toggleComments('sample')">💬 Komento (<span id="count-sample">1</span>)</span>
       </div>
       <div class="comments-wrapper" id="comments-sample">
-        <div class="comment-item"><span class="comment-user">Guro:</span> Magandang halimbawa ng dagli! May bitin at kilabot.</div>
+        <div class="comment-item"><span class="comment-user">Guro:</span> Napakagandang halimbawa ng twist sa huli! Klasikong dagli.</div>
         <div class="comment-input-row">
           <input type="text" id="c-name-sample" placeholder="Pangalan mo..." style="max-width:130px;">
           <input type="text" id="c-text-sample" placeholder="Mag-iwan ng komento...">
@@ -525,8 +554,7 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database().ref("dagli_posts");
 
-    // OBFUSCATED ENCRYPTED PASSCODE (Para hindi makita sa F12 / Source Code)
-    // Ang base64 ng 87000 ay "ODcwMDA="
+    // Passcode Hash (87000)
     const _SEC_HASH = "ODcwMDA=";
 
     const MAX_UPVOTES = 5; // 5 upvotes limit bawat estudyante
@@ -573,7 +601,7 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       }
     });
 
-    // 5. RENDER POSTS FEED
+    // 5. RENDER POSTS FEED (Walang Gender na lumalabas sa public)
     function renderFeed() {
       const containerHome = document.getElementById('postsListHome');
       const containerAll = document.getElementById('postsListAll');
@@ -626,13 +654,13 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
           `;
         });
 
+        // Walang Gender badge dito ayon sa hiningi mo:
         html += `
           <div class="post-card" id="post-${id}">
             <div class="post-header">
               <span class="post-title">${escapeHtml(p.title)}</span> &nbsp;
               <span class="post-user">${escapeHtml(p.username)}</span>
               <span class="badge">${escapeHtml(p.section)}</span>
-              <span class="badge">${escapeHtml(p.gender || 'N/A')}</span>
               <span class="post-author-sub">Tunay: ${authorReal} &bull; No. ${id.slice(-5)} &bull; ${p.date}</span>
             </div>
             <div class="post-body">${formattedLines}</div>
@@ -678,7 +706,6 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       localStorage.setItem('dagli_upvotes_voted', JSON.stringify(voted));
       updateQuotaDisplay();
 
-      // Database Transaction para maiwasan ang race condition
       db.child(id).child('upvotes').transaction(cur => (cur || 0) + 1);
     }
 
@@ -746,7 +773,7 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       });
     }
 
-    // 9. COMMENTS WITH ANTI-SPAM COOLDOWN
+    // 9. COMMENTS WITH COOLDOWN
     function toggleComments(id) {
       const box = document.getElementById('comments-' + id);
       if (box) {
@@ -774,7 +801,6 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
         date: new Date().toLocaleTimeString()
       }).then(() => {
         textInput.value = '';
-        // 3-second cooldown para hindi ma-spam
         setTimeout(() => { sendBtn.disabled = false; }, 3000);
       }).catch(() => { sendBtn.disabled = false; });
     }
@@ -840,7 +866,7 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       tbody.innerHTML = html;
     }
 
-    // 12. ADMIN LOGIN WITH HASH (No 87000 in plaintext)
+    // 12. ADMIN LOGIN (PASSCODE 87000 HASHED)
     function checkAdminLogin() {
       const val = document.getElementById('adminPassInput').value.trim();
       const err = document.getElementById('adminLoginErr');
