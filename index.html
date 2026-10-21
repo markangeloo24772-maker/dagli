@@ -149,6 +149,7 @@
       font-weight: bold;
     }
     .badge-sample { background: #81C784; color: #003300; }
+    
     .post-body {
       color: #000;
       font-size: 10pt;
@@ -158,6 +159,20 @@
       margin: 8px 0;
     }
     .greentext { color: #789922; font-weight: 500; }
+
+    /* READ MORE BUTTON */
+    .read-more-btn {
+      color: #0F0C5D;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 4px;
+      display: inline-block;
+      text-decoration: underline;
+      font-size: 9pt;
+      user-select: none;
+    }
+    .read-more-btn:hover { color: red; }
+
     .actions {
       font-size: 8.5pt;
       margin-top: 6px;
@@ -366,7 +381,7 @@
       ─── MGA KABABAGONG DAGLI ───
     </div>
     
-    <!-- SAMPLE PINNED POST (ENSAYMADA) -->
+    <!-- SAMPLE PINNED POST (ENSAYMADA may 30-word cut-off) -->
     <div class="post-card sample">
       <div class="post-header">
         <span class="post-title">ENSAYMADA</span> &nbsp;
@@ -375,7 +390,16 @@
         <span class="badge">10-Rizal</span>
         <span class="post-author-sub">Tunay: [Cabudbud, E.] &bull; Petsa: Halimbawa</span>
       </div>
-      <div class="post-body">Kumakalam na naman ang sikmura kaya naisip kong bumili ng limang pirasong ensaymada.
+      <div class="post-body">
+        <div id="snippet-sample">
+Kumakalam na naman ang sikmura kaya naisip kong bumili ng limang pirasong ensaymada.
+Umupo ako sa isang kainan habang nagbabasa ng libro. Nakasabay ko sa mesa ang isang maralitang matanda.
+
+Laki ng gulat ko...
+          <div><span class="read-more-btn" onclick="toggleReadMore('sample', true)">[👉 Basahin ang Kabuuan...]</span></div>
+        </div>
+        <div id="full-sample" style="display:none;">
+Kumakalam na naman ang sikmura kaya naisip kong bumili ng limang pirasong ensaymada.
 
 Umupo ako sa isang kainan habang nagbabasa ng libro.
 
@@ -407,7 +431,10 @@ Habang papalabas ako sa tindahan, tinawag ako ng tindera sa counter.
 
 Nanlumo ako sa aking nakita.
 
-Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
+Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
+          <div><span class="read-more-btn" onclick="toggleReadMore('sample', false)">[▲ Itago / Show Less]</span></div>
+        </div>
+      </div>
       <div class="actions">
         <span class="action-btn" onclick="sampleUpvote(this)">▲ Upvote (<span class="s-up">15</span>)</span>
         <span class="action-btn" onclick="sampleHeart(this)">❤️ Puso (<span class="s-heart">10</span>)</span>
@@ -557,10 +584,44 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
     // Passcode Hash (87000)
     const _SEC_HASH = "ODcwMDA=";
 
-    const MAX_UPVOTES = 5; // 5 upvotes limit bawat estudyante
+    const MAX_UPVOTES = 5;
     let allPostsData = {};
 
-    // 2. VOTE QUOTA TRACKER
+    // 2. HELPER PARA SA 30-WORD CUTOFF & GREENTEXT
+    function formatLines(str) {
+      return (str || '').split('\n').map(line => {
+        if (line.trim().startsWith('>')) {
+          return `<span class="greentext">${escapeHtml(line)}</span>`;
+        }
+        return escapeHtml(line);
+      }).join('\n');
+    }
+
+    function getSnippet(text, wordLimit) {
+      let count = 0;
+      let cutIndex = 0;
+      const regex = /\S+/g;
+      let match;
+      while ((match = regex.exec(text)) !== null) {
+        count++;
+        if (count === wordLimit) {
+          cutIndex = regex.lastIndex;
+          break;
+        }
+      }
+      return text.slice(0, cutIndex) + '...';
+    }
+
+    function toggleReadMore(id, showFull) {
+      const s = document.getElementById('snippet-' + id);
+      const f = document.getElementById('full-' + id);
+      if (s && f) {
+        s.style.display = showFull ? 'none' : 'block';
+        f.style.display = showFull ? 'block' : 'none';
+      }
+    }
+
+    // 3. VOTE QUOTA TRACKER
     function getVotedPosts() {
       try {
         return JSON.parse(localStorage.getItem('dagli_upvotes_voted') || '[]');
@@ -582,7 +643,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       }
     }
 
-    // 3. TAB SWITCHING
+    // 4. TAB SWITCHING
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       const activeEl = document.getElementById(tabId);
@@ -590,7 +651,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       window.scrollTo(0, 0);
     }
 
-    // 4. REAL-TIME DATA LISTENER
+    // 5. REAL-TIME DATA LISTENER
     db.on("value", (snapshot) => {
       allPostsData = snapshot.val() || {};
       renderFeed();
@@ -601,7 +662,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       }
     });
 
-    // 5. RENDER POSTS FEED (Walang Gender na lumalabas sa public)
+    // 6. RENDER POSTS FEED (MAY 30-WORD READ MORE)
     function renderFeed() {
       const containerHome = document.getElementById('postsListHome');
       const containerAll = document.getElementById('postsListAll');
@@ -623,19 +684,31 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
         const comments = p.comments ? Object.values(p.comments) : [];
         const commentCount = comments.length;
 
-        // Greentext support (>)
-        const formattedLines = (p.content || '').split('\n').map(line => {
-          if (line.trim().startsWith('>')) {
-            return `<span class="greentext">${escapeHtml(line)}</span>`;
-          }
-          return escapeHtml(line);
-        }).join('\n');
+        // 30-WORD TRUNCATION LOGIC
+        const rawContent = p.content || '';
+        const wordCount = rawContent.trim().split(/\s+/).length;
+        let bodyHtml = '';
+
+        if (wordCount > 30) {
+          const snippetText = getSnippet(rawContent, 30);
+          bodyHtml = `
+            <div id="snippet-${id}">
+              ${formatLines(snippetText)}
+              <div><span class="read-more-btn" onclick="toggleReadMore('${id}', true)">[👉 Basahin ang Kabuuan...]</span></div>
+            </div>
+            <div id="full-${id}" style="display:none;">
+              ${formatLines(rawContent)}
+              <div><span class="read-more-btn" onclick="toggleReadMore('${id}', false)">[▲ Itago / Show Less]</span></div>
+            </div>
+          `;
+        } else {
+          bodyHtml = formatLines(rawContent);
+        }
 
         const authorReal = p.lastName && p.firstInitial 
           ? `[${escapeHtml(p.lastName)}, ${escapeHtml(p.firstInitial)}]` 
           : (p.realName ? `[${escapeHtml(p.realName)}]` : '');
 
-        // Checked states
         const isUpvoted = votedList.includes(id);
         const isHearted = heartedList.includes(id);
 
@@ -644,7 +717,6 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
         const upClass = isUpvoted ? 'action-btn voted' : 'action-btn';
         const heartClass = isHearted ? 'action-btn hearted' : 'action-btn';
 
-        // Comments HTML list
         let commentsListHtml = '';
         comments.forEach(c => {
           commentsListHtml += `
@@ -654,7 +726,6 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
           `;
         });
 
-        // Walang Gender badge dito ayon sa hiningi mo:
         html += `
           <div class="post-card" id="post-${id}">
             <div class="post-header">
@@ -663,7 +734,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
               <span class="badge">${escapeHtml(p.section)}</span>
               <span class="post-author-sub">Tunay: ${authorReal} &bull; No. ${id.slice(-5)} &bull; ${p.date}</span>
             </div>
-            <div class="post-body">${formattedLines}</div>
+            <div class="post-body">${bodyHtml}</div>
             <div class="actions">
               <span class="${upClass}" onclick="upvote('${id}')">${upBtnText}</span>
               <span class="${heartClass}" onclick="heartReaction('${id}')">${heartBtnText}</span>
@@ -671,7 +742,6 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
               <span class="action-btn" onclick="singleDelete('${id}')" style="color:#A00;">[Burahin]</span>
             </div>
             
-            <!-- COMMENTS DRAWER -->
             <div class="comments-wrapper" id="comments-${id}">
               <div id="comments-items-${id}">${commentsListHtml || '<div style="color:#888; font-size:8pt;">Wala pang komento.</div>'}</div>
               <div class="comment-input-row">
@@ -688,7 +758,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       containerAll.innerHTML = html;
     }
 
-    // 6. ANTI-SPAM UPVOTES (5 VOTES TOTAL, 1 PER POST)
+    // 7. UPVOTE (5 MAX QUOTA)
     function upvote(id) {
       const voted = getVotedPosts();
 
@@ -709,7 +779,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       db.child(id).child('upvotes').transaction(cur => (cur || 0) + 1);
     }
 
-    // 7. ANTI-SPAM HEARTS (1 HEART PER POST)
+    // 8. HEARTS (1 PER POST)
     function heartReaction(id) {
       const hearted = getHeartedPosts();
 
@@ -724,7 +794,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       db.child(id).child('hearts').transaction(cur => (cur || 0) + 1);
     }
 
-    // 8. SUBMIT POST
+    // 9. SUBMIT POST
     function submitDagli() {
       const username = document.getElementById('username').value.trim();
       const lastName = document.getElementById('lastName').value.trim();
@@ -773,7 +843,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       });
     }
 
-    // 9. COMMENTS WITH COOLDOWN
+    // 10. COMMENTS
     function toggleComments(id) {
       const box = document.getElementById('comments-' + id);
       if (box) {
@@ -805,7 +875,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       }).catch(() => { sendBtn.disabled = false; });
     }
 
-    // 10. SAMPLE POST (LOCAL)
+    // 11. SAMPLE POST (LOCAL)
     function sampleUpvote(btn) {
       const span = btn.querySelector('.s-up');
       span.innerText = parseInt(span.innerText) + 1;
@@ -830,7 +900,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       c.innerText = parseInt(c.innerText) + 1;
     }
 
-    // 11. LEADERBOARD
+    // 12. LEADERBOARD
     function renderLeaderboard() {
       const tbody = document.getElementById('leaderboardBody');
       const postsArray = Object.keys(allPostsData).map(k => ({ id: k, ...allPostsData[k] }));
@@ -866,7 +936,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       tbody.innerHTML = html;
     }
 
-    // 12. ADMIN LOGIN (PASSCODE 87000 HASHED)
+    // 13. ADMIN LOGIN
     function checkAdminLogin() {
       const val = document.getElementById('adminPassInput').value.trim();
       const err = document.getElementById('adminLoginErr');
@@ -1002,7 +1072,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       document.getElementById('adminTableBody').innerHTML = tbodyHtml || '<tr><td colspan="8" style="text-align:center;">Walang nakitang post.</td></tr>';
     }
 
-    // 13. BATCH & SINGLE DELETE
+    // 14. BATCH & SINGLE DELETE
     function toggleSelectAll(master) {
       document.querySelectorAll('.post-check').forEach(cb => cb.checked = master.checked);
     }
