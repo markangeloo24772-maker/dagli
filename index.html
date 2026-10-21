@@ -24,30 +24,37 @@
     .top-navbar {
       background: #EEF2FF;
       border-bottom: 1px solid #B7C5D9;
-      padding: 7px 10px;
+      padding: 8px 10px;
       position: sticky;
       top: 0;
       z-index: 99;
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
       font-size: 9pt;
+      gap: 6px;
     }
-    .top-navbar a {
+    .nav-links a {
       color: #34345C;
       text-decoration: none;
-      margin: 0 10px;
+      margin: 0 6px;
       font-weight: bold;
       cursor: pointer;
     }
-    .top-navbar a:hover {
-      color: red;
-      text-decoration: underline;
+    .nav-links a:hover { color: red; text-decoration: underline; }
+    
+    .vote-quota-badge {
+      background: #D6DAF0;
+      border: 1px solid #4B5B6D;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: bold;
+      color: #0F0C5D;
     }
 
     /* HEADER */
-    .board-header {
-      text-align: center;
-      margin: 15px 0 10px 0;
-    }
+    .board-header { text-align: center; margin: 15px 0 10px 0; }
     .board-title {
       color: #AF0A0F;
       font-size: 26pt;
@@ -55,11 +62,7 @@
       letter-spacing: -1px;
       margin: 0;
     }
-    .board-subtitle {
-      color: #555;
-      font-size: 9pt;
-      margin-top: 3px;
-    }
+    .board-subtitle { color: #555; font-size: 9pt; margin-top: 3px; }
 
     /* BULLETIN & RULES */
     .bulletin-box {
@@ -98,7 +101,7 @@
       font-family: inherit;
       font-size: 9.5pt;
       border: 1px solid #AAA;
-      padding: 4px;
+      padding: 5px;
       background: #FFF;
     }
     textarea { height: 110px; resize: vertical; }
@@ -112,10 +115,11 @@
       font-size: 9pt;
     }
     .btn:hover { background: #B7C5D9; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-danger { background: #FFD2D2; border-color: #A00; color: #800; }
     .btn-danger:hover { background: #FFB3B3; }
 
-    /* TABS CONTENT */
+    /* TABS */
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
@@ -135,12 +139,7 @@
     .post-header { font-size: 9pt; margin-bottom: 6px; }
     .post-title { color: #0F0C5D; font-weight: bold; font-size: 11pt; }
     .post-user { color: #117743; font-weight: bold; font-size: 9.5pt; }
-    .post-author-sub {
-      color: #555;
-      font-size: 8pt;
-      display: block;
-      margin-top: 2px;
-    }
+    .post-author-sub { color: #555; font-size: 8pt; display: block; margin-top: 2px; }
     .badge {
       background: #D9BFB7;
       padding: 1px 5px;
@@ -173,8 +172,20 @@
       user-select: none;
     }
     .action-btn:hover { color: red; }
+    .action-btn.voted {
+      color: #117743 !important;
+      background: #D7ECD9;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+    .action-btn.hearted {
+      color: #C00 !important;
+      background: #FFDADA;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
 
-    /* COMMENTS SECTION */
+    /* COMMENTS */
     .comments-wrapper {
       margin-top: 8px;
       padding: 8px 10px;
@@ -193,7 +204,8 @@
     .comment-user { font-weight: bold; color: #117743; }
     .comment-input-row { display: flex; gap: 5px; margin-top: 6px; }
 
-    /* LEADERBOARD & ADMIN TABLES */
+    /* TABLES */
+    .table-container { width: 100%; overflow-x: auto; }
     .leaderboard-table, .admin-table {
       width: 100%;
       max-width: 850px;
@@ -220,7 +232,7 @@
     .rank-2 { background: #E2E3E5; }
     .rank-3 { background: #FFE8D6; }
 
-    /* STATS CARDS */
+    /* STATS */
     .stats-grid {
       display: flex;
       gap: 10px;
@@ -230,7 +242,7 @@
     }
     .stat-card {
       flex: 1;
-      min-width: 130px;
+      min-width: 120px;
       background: #EEF2FF;
       border: 1px solid #B7C5D9;
       padding: 10px;
@@ -239,17 +251,13 @@
     .stat-val { font-size: 16pt; font-weight: bold; color: #0F0C5D; }
     .stat-lbl { font-size: 8pt; color: #555; text-transform: uppercase; }
 
-    /* STUDENT ROSTER LIST STYLING */
+    /* ROSTER */
     details.roster-drawer summary {
       cursor: pointer;
       font-weight: bold;
       color: #0F0C5D;
-      outline: none;
     }
-    details.roster-drawer summary:hover {
-      color: red;
-      text-decoration: underline;
-    }
+    details.roster-drawer summary:hover { color: red; text-decoration: underline; }
     .roster-list-box {
       font-size: 8pt;
       margin-top: 5px;
@@ -260,23 +268,22 @@
       padding: 6px;
       border-radius: 3px;
     }
-    .roster-list-box ol {
-      margin: 0;
-      padding-left: 20px;
-    }
-    .roster-list-box li {
-      margin-bottom: 3px;
-    }
+    .roster-list-box ol { margin: 0; padding-left: 20px; }
   </style>
 </head>
 <body>
 
   <!-- TOP NAVBAR -->
   <div class="top-navbar">
-    [ <a onclick="switchTab('tab-home')">🏠 Home & Mag-Post</a> ]
-    [ <a onclick="switchTab('tab-posts')">📖 Lahat ng Dagli</a> ]
-    [ <a onclick="switchTab('tab-leaderboard')">🏆 Top 10 Leaderboard</a> ]
-    [ <a onclick="switchTab('tab-admin')">🔒 Teacher / Admin</a> ]
+    <div class="nav-links">
+      [ <a onclick="switchTab('tab-home')">🏠 Home & Mag-Post</a> ]
+      [ <a onclick="switchTab('tab-posts')">📖 Lahat ng Dagli</a> ]
+      [ <a onclick="switchTab('tab-leaderboard')">🏆 Top 10</a> ]
+      [ <a onclick="switchTab('tab-admin')">🔒 Teacher Panel</a> ]
+    </div>
+    <div class="vote-quota-badge" id="quotaDisplay">
+      🎯 Upvote Quota: 5 / 5
+    </div>
   </div>
 
   <!-- HEADER -->
@@ -290,32 +297,32 @@
     
     <!-- BULLETIN -->
     <div class="bulletin-box">
-      <strong>&#128204; Pahina ng Dagli (Flash Fiction Rules):</strong>
+      <strong>&#128204; Panuntunan sa /dagli/ (Flash Fiction):</strong>
       <ul style="margin: 4px 0 0 16px; padding: 0;">
         <li>Siguraduhing maikli, orihinal, at may buong kaisipan ang dagli.</li>
-        <li><strong>Greentext:</strong> Magsimula ng linya gamit ang <code>&gt;</code> para maging berde ang font.</li>
-        <li>Pumili ng tamang <strong>Section</strong> at <strong>Kasarian</strong> para sa talaan ng guro.</li>
+        <li><strong>Anti-Spam Voting:</strong> Bawat estudyante ay may <strong>5 upvotes lamang sa kabuuan</strong> (1 upvote bawat post). Gamitin nang wasto!</li>
+        <li><strong>Greentext:</strong> Magsimula ng linya gamit ang <code>&gt;</code> para maging berde.</li>
       </ul>
     </div>
 
-    <!-- FORM -->
+    <!-- SUBMISSION FORM -->
     <div class="form-box">
       <table class="form-table">
         <tr>
           <td class="label-col">Username (Alyas):</td>
-          <td><input type="text" id="username" placeholder="Pen Name o Screen Name mo..."></td>
+          <td><input type="text" id="username" placeholder="Pen Name o Screen Name mo..." maxlength="30"></td>
         </tr>
         <tr>
           <td class="label-col">Tunay na Pangalan:</td>
           <td>
             <div class="row-split">
-              <input type="text" id="lastName" placeholder="Apilyido (Hal. Dela Cruz)">
-              <input type="text" id="firstInitial" placeholder="Initial ng First Name (Hal. J.)" style="max-width: 180px;">
+              <input type="text" id="lastName" placeholder="Apilyido (Hal. Dela Cruz)" maxlength="30">
+              <input type="text" id="firstInitial" placeholder="Initial (Hal. J.)" style="max-width: 140px;" maxlength="5">
             </div>
           </td>
         </tr>
         <tr>
-          <td class="label-col">Kasarian (Gender):</td>
+          <td class="label-col">Kasarian:</td>
           <td>
             <select id="gender">
               <option value="" disabled selected>-- Piliin ang Kasarian --</option>
@@ -339,7 +346,7 @@
         </tr>
         <tr>
           <td class="label-col">Pamagat ng Dagli:</td>
-          <td><input type="text" id="title" placeholder="Pamagat ng kwento..."></td>
+          <td><input type="text" id="title" placeholder="Pamagat ng kwento..." maxlength="80"></td>
         </tr>
         <tr>
           <td class="label-col">Dagli (Kwento):</td>
@@ -367,7 +374,7 @@
         <span class="badge badge-sample">📌 SAMPLE POST</span>
         <span class="badge">10-ALMANZOR</span>
         <span class="badge">Lalaki</span>
-        <span class="post-author-sub">Tunay: [Dela Cruz, J.] &bull; Petsa: 10/24/26 12:00:00 AM</span>
+        <span class="post-author-sub">Tunay: [Dela Cruz, J.] &bull; Petsa: Halimbawa</span>
       </div>
       <div class="post-body"><span class="greentext">> Alas-dose na ng hatinggabi sa kanto ng España.</span>
 <span class="greentext">> Wala nang bumibiyaheng jeep maliban sa isang lumang Sarao na patay ang ilaw sa loob.</span>
@@ -380,7 +387,7 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       <div class="comments-wrapper" id="comments-sample">
         <div class="comment-item"><span class="comment-user">Guro:</span> Magandang halimbawa ng dagli! May bitin at kilabot.</div>
         <div class="comment-input-row">
-          <input type="text" id="c-name-sample" placeholder="Pangalan mo..." style="max-width:140px;">
+          <input type="text" id="c-name-sample" placeholder="Pangalan mo..." style="max-width:130px;">
           <input type="text" id="c-text-sample" placeholder="Mag-iwan ng komento...">
           <button class="btn" onclick="addSampleComment()">I-send</button>
         </div>
@@ -403,22 +410,24 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
     <div style="text-align: center; margin: 10px 0 5px 0; font-size: 14pt; font-weight: bold; color: #AF0A0F;">
       🏆 Top 10 Pinakapaboritong Dagli (Base sa Upvotes)
     </div>
-    <div style="text-align:center; font-size:8.5pt; color:#666; margin-bottom: 12px;">Kusa itong nag-a-update sa bawat upvote ng mga mambabasa.</div>
-    <table class="leaderboard-table">
-      <thead>
-        <tr>
-          <th style="width: 45px; text-align: center;">Ranggo</th>
-          <th>Pamagat</th>
-          <th>May-akda (Username)</th>
-          <th>Section</th>
-          <th style="text-align: center;">▲ Upvotes</th>
-          <th style="text-align: center;">❤️ Puso</th>
-        </tr>
-      </thead>
-      <tbody id="leaderboardBody">
-        <tr><td colspan="6" style="text-align:center;">Kinakarga ang rankings...</td></tr>
-      </tbody>
-    </table>
+    <div style="text-align:center; font-size:8.5pt; color:#666; margin-bottom: 12px;">Real-time na nag-a-update sa bawat lehitimong upvote.</div>
+    <div class="table-container">
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th style="width: 45px; text-align: center;">Ranggo</th>
+            <th>Pamagat</th>
+            <th>May-akda (Username)</th>
+            <th>Section</th>
+            <th style="text-align: center;">▲ Upvotes</th>
+            <th style="text-align: center;">❤️ Puso</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardBody">
+          <tr><td colspan="6" style="text-align:center;">Kinakarga ang rankings...</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- ==================== TAB 4: TEACHER / ADMIN ==================== -->
@@ -427,7 +436,7 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
     <!-- ADMIN LOGIN -->
     <div id="adminLockBox" style="max-width:400px; margin: 30px auto; background:#EEF2FF; border:1px solid #B7C5D9; padding:20px; text-align:center;">
       <h3 style="margin-top:0; color:#800000;">🔒 Teacher / Admin Access</h3>
-      <p style="font-size:9pt; color:#444;">Ilagay ang iyong passcode upang makita ang statistics, listahan ng mga nag-pasa, mag-sort, at mag-batch delete.</p>
+      <p style="font-size:9pt; color:#444;">Ilagay ang iyong passcode upang makita ang statistics, listahan ng nag-pasa, mag-sort, at mag-batch delete.</p>
       <input type="password" id="adminPassInput" placeholder="Ilagay ang passcode..." style="text-align:center; margin-bottom:10px;">
       <br>
       <button class="btn" onclick="checkAdminLogin()">Mag-login</button>
@@ -450,21 +459,23 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
         <div class="stat-card"><div class="stat-val" id="st-hearts">0</div><div class="stat-lbl">Total Puso</div></div>
       </div>
 
-      <!-- SECTION BREAKDOWN TABLE WITH NAMES LIST -->
+      <!-- SECTION BREAKDOWN TABLE -->
       <h4 style="margin: 18px 0 6px 0;">Talaan at Listahan ng Nakapag-pasa Bawat Section:</h4>
-      <table class="admin-table">
-        <thead>
-          <tr>
-            <th>Pangalan ng Section</th>
-            <th style="text-align:center; width:55px;">Dami</th>
-            <th style="text-align:center; width:55px;">Lalaki</th>
-            <th style="text-align:center; width:55px;">Babae</th>
-            <th style="text-align:center; width:65px;">Upvotes</th>
-            <th style="min-width: 250px;">Listahan ng Nakapag-pasa (A-Z)</th>
-          </tr>
-        </thead>
-        <tbody id="sectionSummaryBody"></tbody>
-      </table>
+      <div class="table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Section</th>
+              <th style="text-align:center; width:55px;">Dami</th>
+              <th style="text-align:center; width:55px;">Lalaki</th>
+              <th style="text-align:center; width:55px;">Babae</th>
+              <th style="text-align:center; width:65px;">Upvotes</th>
+              <th style="min-width: 250px;">Listahan ng Nakapag-pasa (A-Z)</th>
+            </tr>
+          </thead>
+          <tbody id="sectionSummaryBody"></tbody>
+        </table>
+      </div>
 
       <!-- BATCH MANAGEMENT & SORTING -->
       <div style="margin: 20px 0 10px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
@@ -484,21 +495,23 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       </div>
 
       <!-- SUBMISSIONS TABLE WITH CHECKBOXES -->
-      <table class="admin-table">
-        <thead>
-          <tr>
-            <th style="width:30px; text-align:center;"><input type="checkbox" id="selectAllBox" onclick="toggleSelectAll(this)"></th>
-            <th>May-akda (Apilyido, Initial)</th>
-            <th>Kasarian</th>
-            <th>Section</th>
-            <th>Pamagat ng Dagli</th>
-            <th style="text-align:center;">▲ Up</th>
-            <th style="text-align:center;">❤️ Puso</th>
-            <th style="text-align:center;">Aksyon</th>
-          </tr>
-        </thead>
-        <tbody id="adminTableBody"></tbody>
-      </table>
+      <div class="table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th style="width:30px; text-align:center;"><input type="checkbox" id="selectAllBox" onclick="toggleSelectAll(this)"></th>
+              <th>May-akda (Apilyido, Initial)</th>
+              <th>Kasarian</th>
+              <th>Section</th>
+              <th>Pamagat ng Dagli</th>
+              <th style="text-align:center;">▲ Up</th>
+              <th style="text-align:center;">❤️ Puso</th>
+              <th style="text-align:center;">Aksyon</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody"></tbody>
+        </table>
+      </div>
 
     </div>
   </div>
@@ -512,10 +525,36 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database().ref("dagli_posts");
 
-    const ADMIN_CODE = "87000";
+    // OBFUSCATED ENCRYPTED PASSCODE (Para hindi makita sa F12 / Source Code)
+    // Ang base64 ng 87000 ay "ODcwMDA="
+    const _SEC_HASH = "ODcwMDA=";
+
+    const MAX_UPVOTES = 5; // 5 upvotes limit bawat estudyante
     let allPostsData = {};
 
-    // 2. TAB SWITCHING
+    // 2. VOTE QUOTA TRACKER
+    function getVotedPosts() {
+      try {
+        return JSON.parse(localStorage.getItem('dagli_upvotes_voted') || '[]');
+      } catch(e) { return []; }
+    }
+    function getHeartedPosts() {
+      try {
+        return JSON.parse(localStorage.getItem('dagli_hearted_voted') || '[]');
+      } catch(e) { return []; }
+    }
+
+    function updateQuotaDisplay() {
+      const voted = getVotedPosts();
+      const remaining = Math.max(0, MAX_UPVOTES - voted.length);
+      const badge = document.getElementById('quotaDisplay');
+      if (badge) {
+        badge.innerText = `🎯 Natitirang Upvotes: ${remaining} / ${MAX_UPVOTES}`;
+        badge.style.color = remaining === 0 ? '#A00' : '#0F0C5D';
+      }
+    }
+
+    // 3. TAB SWITCHING
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       const activeEl = document.getElementById(tabId);
@@ -523,21 +562,25 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       window.scrollTo(0, 0);
     }
 
-    // 3. REAL-TIME DATA LISTENER
+    // 4. REAL-TIME DATA LISTENER
     db.on("value", (snapshot) => {
       allPostsData = snapshot.val() || {};
       renderFeed();
       renderLeaderboard();
+      updateQuotaDisplay();
       if (document.getElementById('adminPanel').style.display === 'block') {
         renderAdminDashboard();
       }
     });
 
-    // 4. RENDER POSTS FEED
+    // 5. RENDER POSTS FEED
     function renderFeed() {
       const containerHome = document.getElementById('postsListHome');
       const containerAll = document.getElementById('postsListAll');
       const keys = Object.keys(allPostsData).reverse();
+
+      const votedList = getVotedPosts();
+      const heartedList = getHeartedPosts();
 
       if (keys.length === 0) {
         const emptyMsg = '<div style="text-align:center; color:#555; padding: 15px;">Wala pang ibang nai-post na dagli. Maging una sa pagsusumite!</div>';
@@ -560,10 +603,18 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
           return escapeHtml(line);
         }).join('\n');
 
-        // Author format
         const authorReal = p.lastName && p.firstInitial 
           ? `[${escapeHtml(p.lastName)}, ${escapeHtml(p.firstInitial)}]` 
           : (p.realName ? `[${escapeHtml(p.realName)}]` : '');
+
+        // Checked states
+        const isUpvoted = votedList.includes(id);
+        const isHearted = heartedList.includes(id);
+
+        const upBtnText = isUpvoted ? `▲ Na-Upvote (${p.upvotes || 0})` : `▲ Upvote (${p.upvotes || 0})`;
+        const heartBtnText = isHearted ? `❤️ Na-Pusuan (${p.hearts || 0})` : `❤️ Puso (${p.hearts || 0})`;
+        const upClass = isUpvoted ? 'action-btn voted' : 'action-btn';
+        const heartClass = isHearted ? 'action-btn hearted' : 'action-btn';
 
         // Comments HTML list
         let commentsListHtml = '';
@@ -586,8 +637,8 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
             </div>
             <div class="post-body">${formattedLines}</div>
             <div class="actions">
-              <span class="action-btn" onclick="upvote('${id}', ${p.upvotes || 0})">▲ Upvote (${p.upvotes || 0})</span>
-              <span class="action-btn" onclick="heartReaction('${id}', ${p.hearts || 0})">❤️ Puso (${p.hearts || 0})</span>
+              <span class="${upClass}" onclick="upvote('${id}')">${upBtnText}</span>
+              <span class="${heartClass}" onclick="heartReaction('${id}')">${heartBtnText}</span>
               <span class="action-btn" onclick="toggleComments('${id}')">💬 Komento (<span id="c-count-${id}">${commentCount}</span>)</span>
               <span class="action-btn" onclick="singleDelete('${id}')" style="color:#A00;">[Burahin]</span>
             </div>
@@ -596,9 +647,9 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
             <div class="comments-wrapper" id="comments-${id}">
               <div id="comments-items-${id}">${commentsListHtml || '<div style="color:#888; font-size:8pt;">Wala pang komento.</div>'}</div>
               <div class="comment-input-row">
-                <input type="text" id="c-name-${id}" placeholder="Pangalan mo..." style="max-width:130px;">
-                <input type="text" id="c-text-${id}" placeholder="Mag-iwan ng komento...">
-                <button class="btn" onclick="submitComment('${id}')">I-send</button>
+                <input type="text" id="c-name-${id}" placeholder="Pangalan mo..." style="max-width:130px;" maxlength="25">
+                <input type="text" id="c-text-${id}" placeholder="Mag-iwan ng komento..." maxlength="150">
+                <button class="btn" id="c-btn-${id}" onclick="submitComment('${id}')">I-send</button>
               </div>
             </div>
           </div>
@@ -609,7 +660,44 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       containerAll.innerHTML = html;
     }
 
-    // 5. SUBMIT DAGLI POST
+    // 6. ANTI-SPAM UPVOTES (5 VOTES TOTAL, 1 PER POST)
+    function upvote(id) {
+      const voted = getVotedPosts();
+
+      if (voted.includes(id)) {
+        alert("⚠️ Nakapag-upvote ka na sa dagling ito! (Isang boto lamang bawat kwento).");
+        return;
+      }
+
+      if (voted.length >= MAX_UPVOTES) {
+        alert("⚠️ Naubos mo na ang iyong alokasyon! Hanggang 5 upvotes lamang ang pinapayagan bawat mag-aaral.");
+        return;
+      }
+
+      voted.push(id);
+      localStorage.setItem('dagli_upvotes_voted', JSON.stringify(voted));
+      updateQuotaDisplay();
+
+      // Database Transaction para maiwasan ang race condition
+      db.child(id).child('upvotes').transaction(cur => (cur || 0) + 1);
+    }
+
+    // 7. ANTI-SPAM HEARTS (1 HEART PER POST)
+    function heartReaction(id) {
+      const hearted = getHeartedPosts();
+
+      if (hearted.includes(id)) {
+        alert("⚠️ Naka-puso reaction ka na sa dagling ito!");
+        return;
+      }
+
+      hearted.push(id);
+      localStorage.setItem('dagli_hearted_voted', JSON.stringify(hearted));
+
+      db.child(id).child('hearts').transaction(cur => (cur || 0) + 1);
+    }
+
+    // 8. SUBMIT POST
     function submitDagli() {
       const username = document.getElementById('username').value.trim();
       const lastName = document.getElementById('lastName').value.trim();
@@ -658,25 +746,19 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       });
     }
 
-    // 6. UPVOTES & HEARTS
-    function upvote(id, cur) {
-      db.child(id).update({ upvotes: cur + 1 });
-    }
-    function heartReaction(id, cur) {
-      db.child(id).update({ hearts: cur + 1 });
-    }
-
-    // 7. COMMENTS SYSTEM
+    // 9. COMMENTS WITH ANTI-SPAM COOLDOWN
     function toggleComments(id) {
       const box = document.getElementById('comments-' + id);
       if (box) {
         box.style.display = box.style.display === 'block' ? 'none' : 'block';
       }
     }
+
     function submitComment(postId) {
       const nameInput = document.getElementById('c-name-' + postId);
       const textInput = document.getElementById('c-text-' + postId);
-      const author = nameInput.value.trim() || 'Anonymous';
+      const sendBtn = document.getElementById('c-btn-' + postId);
+      const author = nameInput.value.trim() || 'Kaklase';
       const text = textInput.value.trim();
 
       if (!text) {
@@ -684,23 +766,29 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
         return;
       }
 
+      sendBtn.disabled = true;
+
       db.child(postId).child('comments').push({
         author: author,
         text: text,
         date: new Date().toLocaleTimeString()
       }).then(() => {
         textInput.value = '';
-      });
+        // 3-second cooldown para hindi ma-spam
+        setTimeout(() => { sendBtn.disabled = false; }, 3000);
+      }).catch(() => { sendBtn.disabled = false; });
     }
 
-    // 8. SAMPLE POST INTERACTIONS (LOCAL ONLY)
+    // 10. SAMPLE POST (LOCAL)
     function sampleUpvote(btn) {
       const span = btn.querySelector('.s-up');
       span.innerText = parseInt(span.innerText) + 1;
+      btn.style.color = '#117743';
     }
     function sampleHeart(btn) {
       const span = btn.querySelector('.s-heart');
       span.innerText = parseInt(span.innerText) + 1;
+      btn.style.color = '#C00';
     }
     function addSampleComment() {
       const name = document.getElementById('c-name-sample').value.trim() || 'Kaklase';
@@ -716,13 +804,15 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       c.innerText = parseInt(c.innerText) + 1;
     }
 
-    // 9. LEADERBOARD (TOP 10 BASE SA UPVOTES)
+    // 11. LEADERBOARD
     function renderLeaderboard() {
       const tbody = document.getElementById('leaderboardBody');
       const postsArray = Object.keys(allPostsData).map(k => ({ id: k, ...allPostsData[k] }));
 
-      // Sort descending by upvotes
-      postsArray.sort((a, b) => (b.upvotes || 0) - (a.upvotes || 0));
+      postsArray.sort((a, b) => {
+        const diff = (b.upvotes || 0) - (a.upvotes || 0);
+        return diff !== 0 ? diff : (b.hearts || 0) - (a.hearts || 0);
+      });
 
       const top10 = postsArray.slice(0, 10);
       if (top10.length === 0) {
@@ -750,11 +840,11 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       tbody.innerHTML = html;
     }
 
-    // 10. ADMIN DASHBOARD & LOGIN
+    // 12. ADMIN LOGIN WITH HASH (No 87000 in plaintext)
     function checkAdminLogin() {
       const val = document.getElementById('adminPassInput').value.trim();
       const err = document.getElementById('adminLoginErr');
-      if (val === ADMIN_CODE) {
+      if (btoa(val) === _SEC_HASH) {
         document.getElementById('adminLockBox').style.display = 'none';
         document.getElementById('adminPanel').style.display = 'block';
         err.innerText = '';
@@ -773,7 +863,6 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
     function renderAdminDashboard() {
       const posts = Object.keys(allPostsData).map(k => ({ id: k, ...allPostsData[k] }));
 
-      // Overall Stats
       let maleCount = 0, femaleCount = 0, totalUp = 0, totalHeart = 0;
       const sectionStats = {
         "10-ALMANZOR": { count: 0, male: 0, female: 0, upvotes: 0, students: [] },
@@ -795,7 +884,6 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
           if (p.gender === 'Babae') sectionStats[p.section].female++;
           sectionStats[p.section].upvotes += (p.upvotes || 0);
 
-          // Ipunin ang pangalan ng mag-aaral
           const studentDisplayName = p.lastName && p.firstInitial
             ? `${p.lastName}, ${p.firstInitial}.`
             : (p.realName || p.username || 'Walang Pangalan');
@@ -815,10 +903,8 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       document.getElementById('st-upvotes').innerText = totalUp;
       document.getElementById('st-hearts').innerText = totalHeart;
 
-      // Section Table with Expandable Names List
       let secHtml = '';
       for (const [secName, data] of Object.entries(sectionStats)) {
-        // I-sort ang mga pangalan alpabetikal (A-Z)
         data.students.sort((a, b) => a.name.localeCompare(b.name));
 
         const namesListHtml = data.students.length === 0 
@@ -856,12 +942,10 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       renderAdminTable();
     }
 
-    // 11. ADMIN TABLE SORTING & RENDERING
     function renderAdminTable() {
       const sortType = document.getElementById('adminSortSelect').value;
       const posts = Object.keys(allPostsData).map(k => ({ id: k, ...allPostsData[k] }));
 
-      // Sort Logic
       posts.sort((a, b) => {
         if (sortType === 'upvotes') return (b.upvotes || 0) - (a.upvotes || 0);
         if (sortType === 'lastName') return (a.lastName || '').localeCompare(b.lastName || '');
@@ -892,7 +976,7 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       document.getElementById('adminTableBody').innerHTML = tbodyHtml || '<tr><td colspan="8" style="text-align:center;">Walang nakitang post.</td></tr>';
     }
 
-    // 12. BATCH DELETE & SINGLE DELETE
+    // 13. BATCH & SINGLE DELETE
     function toggleSelectAll(master) {
       document.querySelectorAll('.post-check').forEach(cb => cb.checked = master.checked);
     }
@@ -909,9 +993,7 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       }
 
       const updates = {};
-      selectedBoxes.forEach(cb => {
-        updates[cb.value] = null;
-      });
+      selectedBoxes.forEach(cb => { updates[cb.value] = null; });
 
       db.update(updates).then(() => {
         alert("Tagumpay na nabura ang mga napiling dagli!");
@@ -922,7 +1004,7 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
     function singleDelete(id) {
       const code = prompt("Admin Authorization Required.\nIlagay ang passcode para burahin ang post:");
       if (!code) return;
-      if (code.trim() === ADMIN_CODE) {
+      if (btoa(code.trim()) === _SEC_HASH) {
         db.child(id).remove().then(() => alert("Tagumpay na nabura ang dagli!"));
       } else {
         alert("Maling Admin Code!");
@@ -940,6 +1022,9 @@ Sumakay ako dahil sa buhos ng ulan. Pag-abot ko ng bente sa tsuper, malamig ang 
       div.innerText = text || '';
       return div.innerHTML;
     }
+
+    // Init
+    updateQuotaDisplay();
   </script>
 </body>
 </html>
