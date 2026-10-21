@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>/dagli/ - Flash Fiction Board</title>
+  
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <style>
+    body {
+      background-color: #FFFFEE;
+      color: #800000;
+      font-family: arial, helvetica, sans-serif;
+      font-size: 10pt;
+      margin: 0;
+      padding: 15px;
+    }
+    .board-title {
+      text-align: center;
+      color: #AF0A0F;
+      font-size: 24pt;
+      font-weight: bold;
+      letter-spacing: -1px;
+      margin-bottom: 2px;
+    }
+    .board-subtitle {
+      text-align: center;
+      color: #333;
+      font-size: 9pt;
+      margin-bottom: 20px;
+    }
+    .form-container {
+      background: #EEF2FF;
+      border: 1px solid #B7C5D9;
+      max-width: 550px;
+      margin: 0 auto 20px auto;
+      padding: 10px;
+    }
+    .form-table {
+      width: 100%;
+    }
+    .form-table td {
+      padding: 3px;
+    }
+    .label-col {
+      background: #98E;
+      color: #000;
+      font-weight: bold;
+      font-size: 9pt;
+      width: 130px;
+      padding: 3px 6px !important;
+    }
+    input[type="text"], textarea {
+      width: 95%;
+      font-family: inherit;
+      font-size: 9.5pt;
+      border: 1px solid #AAA;
+      padding: 4px;
+    }
+    textarea {
+      height: 110px;
+      resize: vertical;
+    }
+    .btn-submit {
+      background: #D6DAF0;
+      border: 1px solid #4B5B6D;
+      cursor: pointer;
+      font-weight: bold;
+      padding: 4px 15px;
+    }
+    .btn-submit:hover {
+      background: #B7C5D9;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #D9BFB7;
+      margin: 20px 0;
+    }
+    .post-card {
+      background: #F0E0D6;
+      border: 1px solid #D9BFB7;
+      border-left: 2px solid #800000;
+      max-width: 800px;
+      margin: 0 auto 12px auto;
+      padding: 8px 12px;
+    }
+    .post-header {
+      font-size: 9pt;
+      margin-bottom: 6px;
+    }
+    .post-title {
+      color: #0F0C5D;
+      font-weight: bold;
+      font-size: 11pt;
+    }
+    .post-user {
+      color: #117743;
+      font-weight: bold;
+    }
+    .post-meta {
+      color: #555;
+      font-size: 8.5pt;
+    }
+    .post-body {
+      color: #000;
+      font-size: 10pt;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 8px;
+    }
+    .greentext {
+      color: #789922;
+    }
+    .actions {
+      font-size: 8.5pt;
+    }
+    .action-btn {
+      color: #34345C;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-right: 12px;
+      font-weight: bold;
+    }
+    .action-btn:hover {
+      color: red;
+    }
+    .badge {
+      background: #D9BFB7;
+      padding: 1px 4px;
+      font-size: 8pt;
+      border-radius: 2px;
+      color: #222;
+    }
+    #loading {
+      text-align: center;
+      font-style: italic;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="board-title">/dagli/</div>
+  <div class="board-subtitle">Text-Only Flash Fiction Board &bull; Anonymous Reading &bull; No Images</div>
+
+  <!-- SUBMISSION FORM -->
+  <div class="form-container">
+    <table class="form-table">
+      <tr>
+        <td class="label-col">Username (Alias):</td>
+        <td><input type="text" id="username" placeholder="Pen name mo..."></td>
+      </tr>
+      <tr>
+        <td class="label-col">Tunay na Pangalan:</td>
+        <td><input type="text" id="realName" placeholder="Para sa talaan ni Teacher"></td>
+      </tr>
+      <tr>
+        <td class="label-col">Section:</td>
+        <td><input type="text" id="section" placeholder="Halimbawa: 10 - Rizal"></td>
+      </tr>
+      <tr>
+        <td class="label-col">Pamagat:</td>
+        <td><input type="text" id="title" placeholder="Pamagat ng iyong Dagli"></td>
+      </tr>
+      <tr>
+        <td class="label-col">Dagli (Kwento):</td>
+        <td><textarea id="content" placeholder="Isulat dito ang kwento... Simulan ang linya sa '>' para maging greentext."></textarea></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <button class="btn-submit" id="btnPost" onclick="submitDagli()">I-Post ang Dagli</button>
+          <span id="statusMsg" style="font-size:9pt; margin-left: 8px;"></span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <hr>
+
+  <div id="loading">Kinakarga ang mga Dagli...</div>
+  <div id="postsList"></div>
+
+  <script>
+    // DATABASE CONFIGURATION (Naka-connect na sa DAGLI Firebase mo)
+    const firebaseConfig = {
+      databaseURL: "https://dagli-ee60d-default-rtdb.firebaseio.com/"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database().ref("dagli_posts");
+
+    const ADMIN_CODE = "87000";
+
+    // REAL-TIME LISTENER
+    db.on("value", (snapshot) => {
+      document.getElementById('loading').style.display = 'none';
+      const container = document.getElementById('postsList');
+      const data = snapshot.val();
+
+      if (!data) {
+        container.innerHTML = '<div style="text-align:center; color:#555;">Wala pang dagli. Maging una sa pag-post!</div>';
+        return;
+      }
+
+      const postKeys = Object.keys(data).reverse();
+      let html = '';
+
+      postKeys.forEach(id => {
+        const p = data[id];
+        
+        const formattedLines = (p.content || '').split('\n').map(line => {
+          if (line.trim().startsWith('>')) {
+            return `<span class="greentext">${escapeHtml(line)}</span>`;
+          }
+          return escapeHtml(line);
+        }).join('\n');
+
+        html += `
+          <div class="post-card" id="post-${id}">
+            <div class="post-header">
+              <span class="post-title">${escapeHtml(p.title)}</span> &nbsp;
+              <span class="post-user">${escapeHtml(p.username)}</span>
+              <span class="badge">${escapeHtml(p.section)}</span>
+              <span class="badge" title="Tunay na Pangalan">👤 ${escapeHtml(p.realName)}</span>
+              <span class="post-meta">[ID: ${id.slice(-5)}] ${p.date}</span>
+            </div>
+            <div class="post-body">${formattedLines}</div>
+            <div class="actions">
+              <span class="action-btn" onclick="upvote('${id}', ${p.upvotes || 0})">▲ Upvote (${p.upvotes || 0})</span>
+              <span class="action-btn" onclick="askDelete('${id}')">[Delete]</span>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    });
+
+    // SUBMIT POST
+    function submitDagli() {
+      const username = document.getElementById('username').value.trim();
+      const realName = document.getElementById('realName').value.trim();
+      const section = document.getElementById('section').value.trim();
+      const title = document.getElementById('title').value.trim();
+      const content = document.getElementById('content').value.trim();
+      const status = document.getElementById('statusMsg');
+      const btn = document.getElementById('btnPost');
+
+      if (!username || !realName || !section || !title || !content) {
+        alert("Paki-puno lahat ng impormasyon (Username, Real Name, Section, Title, at Dagli).");
+        return;
+      }
+
+      btn.disabled = true;
+      status.innerText = "Ipinapadala...";
+
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }) + 
+                      ' ' + now.toLocaleTimeString();
+
+      db.push({
+        username,
+        realName,
+        section,
+        title,
+        content,
+        upvotes: 0,
+        date: dateStr
+      }).then(() => {
+        status.innerText = "Nai-post na!";
+        document.getElementById('title').value = '';
+        document.getElementById('content').value = '';
+        btn.disabled = false;
+        setTimeout(() => { status.innerText = ''; }, 3000);
+      }).catch(err => {
+        alert("May error: " + err.message);
+        btn.disabled = false;
+      });
+    }
+
+    // UPVOTE
+    function upvote(id, currentVotes) {
+      db.child(id).update({
+        upvotes: currentVotes + 1
+      });
+    }
+
+    // DELETE WITH PASSCODE (87000)
+    function askDelete(id) {
+      const enteredCode = prompt("Admin Authorization Required.\nIlagay ang passcode para burahin ang post:");
+      if (!enteredCode) return;
+
+      if (enteredCode.trim() === ADMIN_CODE) {
+        db.child(id).remove().then(() => {
+          alert("Tagumpay na nabura ang post!");
+        });
+      } else {
+        alert("Maling Admin Code! Bawal mag-delete.");
+      }
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.innerText = text;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>
