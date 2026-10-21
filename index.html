@@ -2,7 +2,7 @@
 <html lang="tl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>/dagli/ - Flash Fiction Board</title>
   
   <!-- Firebase Scripts -->
@@ -24,7 +24,7 @@
     .top-navbar {
       background: #EEF2FF;
       border-bottom: 1px solid #B7C5D9;
-      padding: 8px 10px;
+      padding: 8px 12px;
       position: sticky;
       top: 0;
       z-index: 99;
@@ -33,17 +33,25 @@
       align-items: center;
       flex-wrap: wrap;
       font-size: 9pt;
-      gap: 6px;
+      gap: 8px;
     }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 4px; }
     .nav-links a {
       color: #34345C;
       text-decoration: none;
-      margin: 0 6px;
+      padding: 3px 6px;
       font-weight: bold;
       cursor: pointer;
+      border-radius: 3px;
     }
-    .nav-links a:hover { color: red; text-decoration: underline; }
+    .nav-links a:hover { color: red; background: #E0E4F0; }
     
+    .user-status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 8.5pt;
+    }
     .vote-quota-badge {
       background: #D6DAF0;
       border: 1px solid #4B5B6D;
@@ -51,6 +59,16 @@
       border-radius: 12px;
       font-weight: bold;
       color: #0F0C5D;
+    }
+    .btn-logout {
+      background: #FFD2D2;
+      border: 1px solid #A00;
+      color: #800;
+      padding: 2px 6px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 2px;
+      font-size: 8pt;
     }
 
     /* HEADER */
@@ -69,22 +87,24 @@
       background: #F0E0D6;
       border: 1px solid #D9BFB7;
       border-left: 4px solid #800000;
-      max-width: 700px;
+      max-width: 680px;
       margin: 10px auto 20px auto;
       padding: 10px 14px;
       font-size: 9pt;
       color: #222;
       line-height: 1.4;
+      border-radius: 2px;
     }
     .bulletin-box strong { color: #800000; }
 
-    /* FORM */
+    /* FORM CONTAINERS */
     .form-box {
       background: #EEF2FF;
       border: 1px solid #B7C5D9;
-      max-width: 700px;
+      max-width: 680px;
       margin: 0 auto 25px auto;
-      padding: 12px;
+      padding: 14px;
+      border-radius: 3px;
     }
     .form-table { width: 100%; border-collapse: collapse; }
     .form-table td { padding: 4px; vertical-align: middle; }
@@ -96,50 +116,87 @@
       width: 140px;
       padding: 4px 6px !important;
     }
-    input[type="text"], select, textarea {
+    input[type="text"], input[type="password"], select, textarea {
       width: 100%;
       font-family: inherit;
       font-size: 9.5pt;
       border: 1px solid #AAA;
-      padding: 5px;
+      padding: 6px;
       background: #FFF;
+      border-radius: 2px;
     }
     textarea { height: 110px; resize: vertical; }
     .row-split { display: flex; gap: 8px; }
+    
     .btn {
       background: #D6DAF0;
       border: 1px solid #4B5B6D;
       cursor: pointer;
       font-weight: bold;
-      padding: 5px 16px;
+      padding: 6px 18px;
       font-size: 9pt;
+      border-radius: 3px;
     }
     .btn:hover { background: #B7C5D9; }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-danger { background: #FFD2D2; border-color: #A00; color: #800; }
     .btn-danger:hover { background: #FFB3B3; }
 
+    /* AUTH NOTIFICATION BANNER */
+    .auth-alert-banner {
+      background: #FFF3CD;
+      border: 1px solid #FFEEBA;
+      border-left: 4px solid #856404;
+      padding: 12px;
+      margin: 0 auto 20px auto;
+      max-width: 680px;
+      text-align: center;
+      color: #856404;
+      font-weight: bold;
+      border-radius: 3px;
+    }
+    .auth-alert-banner a {
+      color: #0F0C5D;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
     /* TABS */
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* POST CARDS */
+    /* POST CONTAINER (FLEX ALIGNMENT) */
+    .posts-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+
+    /* POST CARDS (DYNAMIC CONTENT HUGGING) */
     .post-card {
       background: #F0E0D6;
       border: 1px solid #D9BFB7;
       border-left: 3px solid #800000;
-      max-width: 820px;
-      margin: 0 auto 15px auto;
-      padding: 10px 14px;
+      display: table;
+      width: fit-content;
+      min-width: 300px;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 9px 12px;
+      border-radius: 2px;
     }
     .post-card.sample {
       border-left: 3px solid #117743;
       background: #E8F5E9;
     }
-    .post-header { font-size: 9pt; margin-bottom: 6px; }
+
+    .post-header { font-size: 9pt; margin-bottom: 5px; line-height: 1.35; }
     .post-title { color: #0F0C5D; font-weight: bold; font-size: 11pt; }
     .post-user { color: #117743; font-weight: bold; font-size: 9.5pt; }
     .post-author-sub { color: #555; font-size: 8pt; display: block; margin-top: 2px; }
+    
     .badge {
       background: #D9BFB7;
       padding: 1px 5px;
@@ -150,54 +207,70 @@
     }
     .badge-sample { background: #81C784; color: #003300; }
     
-    .post-body {
+    /* POST BODY (TIGHT PRE-WRAP) */
+    .post-body { margin: 6px 0; }
+    .post-text {
       color: #000;
       font-size: 10pt;
-      line-height: 1.5;
+      line-height: 1.45;
       white-space: pre-wrap;
       word-break: break-word;
-      margin: 8px 0;
+      margin: 0;
     }
     .greentext { color: #789922; font-weight: 500; }
 
-    /* READ MORE BUTTON */
+    /* READ MORE */
     .read-more-btn {
       color: #0F0C5D;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 4px;
+      margin-top: 5px;
       display: inline-block;
       text-decoration: underline;
-      font-size: 9pt;
+      font-size: 8.5pt;
       user-select: none;
     }
     .read-more-btn:hover { color: red; }
 
+    /* ACTIONS */
     .actions {
       font-size: 8.5pt;
-      margin-top: 6px;
-      border-top: 1px dashed #D9BFB7;
-      padding-top: 6px;
+      margin-top: 8px;
+      border-top: 1px dashed #C8B8B0;
+      padding-top: 7px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
     }
     .action-btn {
       color: #34345C;
       cursor: pointer;
-      margin-right: 14px;
       font-weight: bold;
       user-select: none;
+      background: #EAE6D6;
+      border: 1px solid #C8C0AE;
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-size: 8.5pt;
     }
-    .action-btn:hover { color: red; }
+    .action-btn:hover { background: #DDD6C0; color: red; }
     .action-btn.voted {
       color: #117743 !important;
-      background: #D7ECD9;
-      padding: 2px 6px;
-      border-radius: 3px;
+      background: #D7ECD9 !important;
+      border-color: #9ECDA4 !important;
     }
     .action-btn.hearted {
       color: #C00 !important;
-      background: #FFDADA;
-      padding: 2px 6px;
-      border-radius: 3px;
+      background: #FFDADA !important;
+      border-color: #E8A8A8 !important;
+    }
+    .action-btn.delete-btn {
+      background: transparent;
+      border: none;
+      color: #A00;
+      text-decoration: underline;
+      margin-left: auto;
     }
 
     /* COMMENTS */
@@ -208,6 +281,7 @@
       border: 1px solid #D9BFB7;
       border-radius: 3px;
       display: none;
+      width: 100%;
     }
     .comment-item {
       font-size: 8.5pt;
@@ -220,10 +294,10 @@
     .comment-input-row { display: flex; gap: 5px; margin-top: 6px; }
 
     /* TABLES */
-    .table-container { width: 100%; overflow-x: auto; }
+    .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .leaderboard-table, .admin-table {
       width: 100%;
-      max-width: 850px;
+      max-width: 820px;
       margin: 10px auto;
       border-collapse: collapse;
       background: #FFF;
@@ -241,7 +315,7 @@
       padding: 6px;
       border: 1px solid #CCC;
       color: #222;
-      vertical-align: top;
+      vertical-align: middle;
     }
     .rank-1 { background: #FFF3CD; font-weight: bold; }
     .rank-2 { background: #E2E3E5; }
@@ -250,21 +324,22 @@
     /* STATS */
     .stats-grid {
       display: flex;
-      gap: 10px;
-      max-width: 850px;
+      gap: 8px;
+      max-width: 820px;
       margin: 10px auto;
       flex-wrap: wrap;
     }
     .stat-card {
       flex: 1;
-      min-width: 120px;
+      min-width: 110px;
       background: #EEF2FF;
       border: 1px solid #B7C5D9;
-      padding: 10px;
+      padding: 8px;
       text-align: center;
+      border-radius: 3px;
     }
-    .stat-val { font-size: 16pt; font-weight: bold; color: #0F0C5D; }
-    .stat-lbl { font-size: 8pt; color: #555; text-transform: uppercase; }
+    .stat-val { font-size: 15pt; font-weight: bold; color: #0F0C5D; }
+    .stat-lbl { font-size: 7.5pt; color: #555; text-transform: uppercase; }
 
     /* ROSTER */
     details.roster-drawer summary {
@@ -284,6 +359,50 @@
       border-radius: 3px;
     }
     .roster-list-box ol { margin: 0; padding-left: 20px; }
+
+    /* MOBILE OPTIMIZATION */
+    @media (max-width: 640px) {
+      body { padding: 0 6px 60px 6px; }
+      .top-navbar { flex-direction: column; align-items: stretch; padding: 8px 6px; }
+      .nav-links { justify-content: space-around; width: 100%; }
+      .nav-links a { font-size: 9pt; padding: 4px 5px; background: #E4E8F5; }
+      .user-status-badge { justify-content: space-between; width: 100%; }
+      .board-title { font-size: 21pt; }
+      
+      .form-table, .form-table tbody, .form-table tr, .form-table td {
+        display: block;
+        width: 100% !important;
+        padding: 2px 0 !important;
+      }
+      .label-col {
+        background: transparent !important;
+        color: #800000 !important;
+        font-size: 8.5pt;
+        padding-top: 5px !important;
+      }
+      input[type="text"], input[type="password"], select, textarea {
+        font-size: 16px !important;
+        padding: 7px;
+      }
+      .row-split { flex-direction: column; gap: 6px; }
+      .row-split input { max-width: 100% !important; }
+      .btn { width: 100%; padding: 9px; font-size: 10pt; margin-top: 4px; }
+
+      .post-card {
+        display: block !important;
+        width: 100% !important;
+        min-width: unset !important;
+        max-width: 100% !important;
+        padding: 10px;
+        margin-bottom: 8px;
+      }
+      .post-header { font-size: 8.5pt; }
+      .post-title { font-size: 10.5pt; display: block; margin-bottom: 2px; }
+      .post-text { font-size: 9.5pt; line-height: 1.4; }
+      .actions { gap: 5px; }
+      .action-btn { padding: 5px 9px; font-size: 8.5pt; }
+      .action-btn.delete-btn { margin-left: 0; }
+    }
   </style>
 </head>
 <body>
@@ -291,20 +410,25 @@
   <!-- TOP NAVBAR -->
   <div class="top-navbar">
     <div class="nav-links">
-      [ <a onclick="switchTab('tab-home')">🏠 Home & Mag-Post</a> ]
-      [ <a onclick="switchTab('tab-posts')">📖 Lahat ng Dagli</a> ]
-      [ <a onclick="switchTab('tab-leaderboard')">🏆 Top 10</a> ]
-      [ <a onclick="switchTab('tab-admin')">🔒 Teacher Panel</a> ]
+      <a onclick="switchTab('tab-home')">🏠 Home</a>
+      <a onclick="switchTab('tab-posts')">📖 Lahat ng Dagli</a>
+      <a onclick="switchTab('tab-leaderboard')">🏆 Top 10</a>
+      <a onclick="switchTab('tab-auth')" id="navAuthLink">🔑 Login / Mag-rehistro</a>
+      <a onclick="switchTab('tab-admin')">🔒 Teacher Panel</a>
     </div>
-    <div class="vote-quota-badge" id="quotaDisplay">
-      🎯 Upvote Quota: 5 / 5
+    
+    <!-- USER STATUS -->
+    <div class="user-status-badge">
+      <span id="navUserGreeting" style="font-weight:bold; color:#0F0C5D;">Naka-bisita</span>
+      <span class="vote-quota-badge" id="quotaDisplay">🎯 Boto: 5 / 5</span>
+      <button class="btn-logout" id="btnLogout" onclick="logoutStudent()" style="display:none;">Logout</button>
     </div>
   </div>
 
   <!-- HEADER -->
   <div class="board-header">
     <div class="board-title">/dagli/</div>
-    <div class="board-subtitle">Text-Only Flash Fiction Bulletin Board &bull; Walang Rehistro</div>
+    <div class="board-subtitle">Text-Only Flash Fiction Bulletin Board &bull; May Account at 4-Digit PIN</div>
   </div>
 
   <!-- ==================== TAB 1: HOME & SUBMIT ==================== -->
@@ -315,91 +439,65 @@
       <strong>&#128204; Panuntunan sa /dagli/ (Flash Fiction):</strong>
       <ul style="margin: 4px 0 0 16px; padding: 0;">
         <li>Siguraduhing maikli, orihinal, at may buong kaisipan ang dagli.</li>
-        <li><strong>Anti-Spam Voting:</strong> Bawat mag-aaral ay may <strong>5 upvotes lamang sa kabuuan</strong> (1 upvote bawat kwento).</li>
+        <li><strong>Account System:</strong> Mayroon kang <strong>5 upvotes lamang</strong> sa iyong account (1 boto bawat kwento).</li>
         <li><strong>Greentext:</strong> Magsimula ng linya gamit ang <code>&gt;</code> para maging berde ang teksto.</li>
       </ul>
     </div>
 
-    <!-- SUBMISSION FORM -->
-    <div class="form-box">
+    <!-- AUTH REMINDER (KUNG HINDI NAKA-LOGIN) -->
+    <div id="loggedOutPrompt" class="auth-alert-banner">
+      ⚠️ Hindi ka pa naka-login. <a onclick="switchTab('tab-auth')">Mag-login o Mag-rehistro dito</a> upang makapag-post ng sariling dagli at makaboto!
+    </div>
+
+    <!-- SUBMISSION FORM (LILITAW LANG KAPAG NAKA-LOGIN) -->
+    <div class="form-box" id="loggedInPostBox" style="display:none;">
+      <div style="font-weight:bold; color:#0F0C5D; margin-bottom:8px; border-bottom:1px solid #B7C5D9; padding-bottom:4px;">
+        ✍️ Mag-post ng Dagli bilang si: <span id="authorPreviewName" style="color:#117743;"></span> (<span id="authorPreviewSection"></span>)
+      </div>
       <table class="form-table">
         <tr>
-          <td class="label-col">Username (Alyas):</td>
-          <td><input type="text" id="username" placeholder="Pen Name o Screen Name mo..." maxlength="30"></td>
-        </tr>
-        <tr>
-          <td class="label-col">Tunay na Pangalan:</td>
-          <td>
-            <div class="row-split">
-              <input type="text" id="lastName" placeholder="Apilyido (Hal. Dela Cruz)" maxlength="30">
-              <input type="text" id="firstInitial" placeholder="Initial (Hal. J.)" style="max-width: 140px;" maxlength="5">
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="label-col">Kasarian:</td>
-          <td>
-            <select id="gender">
-              <option value="" disabled selected>-- Piliin ang Kasarian --</option>
-              <option value="Lalaki">Lalaki (Male)</option>
-              <option value="Babae">Babae (Female)</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td class="label-col">Section:</td>
-          <td>
-            <select id="section">
-              <option value="" disabled selected>-- Pumili ng Section --</option>
-              <option value="10-ALMANZOR">10-ALMANZOR</option>
-              <option value="10-ECALNER">10-ECALNER</option>
-              <option value="10-RESUENA">10-RESUENA</option>
-              <option value="10-SEVILLA">10-SEVILLA</option>
-              <option value="10-OTCHARAN">10-OTCHARAN</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
           <td class="label-col">Pamagat ng Dagli:</td>
-          <td><input type="text" id="title" placeholder="Pamagat ng kwento..." maxlength="80"></td>
+          <td><input type="text" id="postTitle" placeholder="Pamagat ng kwento..." maxlength="80"></td>
         </tr>
         <tr>
           <td class="label-col">Dagli (Kwento):</td>
-          <td><textarea id="content" placeholder="Isulat dito ang iyong flash fiction... Simulan sa '>' ang linya para maging greentext."></textarea></td>
+          <td><textarea id="postContent" placeholder="Isulat dito ang iyong flash fiction... Simulan sa '>' ang linya para maging greentext."></textarea></td>
         </tr>
         <tr>
           <td></td>
           <td>
-            <button class="btn" id="btnPost" onclick="submitDagli()">I-Post ang Dagli</button>
-            <span id="statusMsg" style="font-size:9pt; margin-left: 8px;"></span>
+            <button class="btn" id="btnSubmitPost" onclick="submitDagli()">I-Post ang Dagli</button>
+            <span id="postStatusMsg" style="font-size:9pt; margin-left: 8px;"></span>
           </td>
         </tr>
       </table>
     </div>
 
-    <div style="text-align: center; margin: 20px 0; font-size: 11pt; font-weight: bold; color: #800000;">
+    <div style="text-align: center; margin: 18px 0; font-size: 11pt; font-weight: bold; color: #800000;">
       ─── MGA KABABAGONG DAGLI ───
     </div>
     
-    <!-- SAMPLE PINNED POST (ENSAYMADA may 30-word cut-off) -->
-    <div class="post-card sample">
-      <div class="post-header">
-        <span class="post-title">ENSAYMADA</span> &nbsp;
-        <span class="post-user">Ed Cabudbud</span>
-        <span class="badge badge-sample">📌 SAMPLE POST</span>
-        <span class="badge">10-Rizal</span>
-        <span class="post-author-sub">Tunay: [Cabudbud, E.] &bull; Petsa: Halimbawa</span>
-      </div>
-      <div class="post-body">
-        <div id="snippet-sample">
-Kumakalam na naman ang sikmura kaya naisip kong bumili ng limang pirasong ensaymada.
+    <div class="posts-wrapper">
+      <!-- SAMPLE PINNED POST (ENSAYMADA) -->
+      <div class="post-card sample">
+        <div class="post-header">
+          <span class="post-title">ENSAYMADA</span> &nbsp;
+          <span class="post-user">Ed Cabudbud</span>
+          <span class="badge badge-sample">📌 SAMPLE</span>
+          <span class="badge">10-Rizal</span>
+          <span class="post-author-sub">Tunay: [Cabudbud, E.] &bull; Petsa: Halimbawa</span>
+        </div>
+        <div class="post-body">
+          <div id="snippet-sample">
+            <div class="post-text">Kumakalam na naman ang sikmura kaya naisip kong bumili ng limang pirasong ensaymada.
+
 Umupo ako sa isang kainan habang nagbabasa ng libro. Nakasabay ko sa mesa ang isang maralitang matanda.
 
-Laki ng gulat ko...
-          <div><span class="read-more-btn" onclick="toggleReadMore('sample', true)">[👉 Basahin ang Kabuuan...]</span></div>
-        </div>
-        <div id="full-sample" style="display:none;">
-Kumakalam na naman ang sikmura kaya naisip kong bumili ng limang pirasong ensaymada.
+Laki ng gulat ko...</div>
+            <span class="read-more-btn" onclick="toggleReadMore('sample', true)">[👉 Basahin ang Kabuuan...]</span>
+          </div>
+          <div id="full-sample" style="display:none;">
+            <div class="post-text">Kumakalam na naman ang sikmura kaya naisip kong bumili ng limang pirasong ensaymada.
 
 Umupo ako sa isang kainan habang nagbabasa ng libro.
 
@@ -431,26 +529,27 @@ Habang papalabas ako sa tindahan, tinawag ako ng tindera sa counter.
 
 Nanlumo ako sa aking nakita.
 
-Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
-          <div><span class="read-more-btn" onclick="toggleReadMore('sample', false)">[▲ Itago / Show Less]</span></div>
+Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
+            <span class="read-more-btn" onclick="toggleReadMore('sample', false)">[▲ Itago / Show Less]</span>
+          </div>
+        </div>
+        <div class="actions">
+          <span class="action-btn" onclick="sampleUpvote(this)">▲ Upvote (<span class="s-up">15</span>)</span>
+          <span class="action-btn" onclick="sampleHeart(this)">❤️ Puso (<span class="s-heart">10</span>)</span>
+          <span class="action-btn" onclick="toggleComments('sample')">💬 Komento (<span id="count-sample">1</span>)</span>
+        </div>
+        <div class="comments-wrapper" id="comments-sample">
+          <div class="comment-item"><span class="comment-user">Guro:</span> Napakagandang halimbawa ng twist sa huli! Klasikong dagli.</div>
+          <div class="comment-input-row">
+            <input type="text" id="c-name-sample" placeholder="Pangalan mo..." style="max-width:130px;">
+            <input type="text" id="c-text-sample" placeholder="Mag-iwan ng komento...">
+            <button class="btn" onclick="addSampleComment()">I-send</button>
+          </div>
         </div>
       </div>
-      <div class="actions">
-        <span class="action-btn" onclick="sampleUpvote(this)">▲ Upvote (<span class="s-up">15</span>)</span>
-        <span class="action-btn" onclick="sampleHeart(this)">❤️ Puso (<span class="s-heart">10</span>)</span>
-        <span class="action-btn" onclick="toggleComments('sample')">💬 Komento (<span id="count-sample">1</span>)</span>
-      </div>
-      <div class="comments-wrapper" id="comments-sample">
-        <div class="comment-item"><span class="comment-user">Guro:</span> Napakagandang halimbawa ng twist sa huli! Klasikong dagli.</div>
-        <div class="comment-input-row">
-          <input type="text" id="c-name-sample" placeholder="Pangalan mo..." style="max-width:130px;">
-          <input type="text" id="c-text-sample" placeholder="Mag-iwan ng komento...">
-          <button class="btn" onclick="addSampleComment()">I-send</button>
-        </div>
-      </div>
-    </div>
 
-    <div id="postsListHome"></div>
+      <div id="postsListHome" class="posts-wrapper"></div>
+    </div>
   </div>
 
   <!-- ==================== TAB 2: LAHAT NG DAGLI ==================== -->
@@ -458,24 +557,24 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
     <div style="text-align: center; margin: 10px 0 15px 0; font-size: 12pt; font-weight: bold;">
       Lahat ng Isinumiteng Dagli ng Mag-aaral
     </div>
-    <div id="postsListAll"></div>
+    <div id="postsListAll" class="posts-wrapper"></div>
   </div>
 
   <!-- ==================== TAB 3: LEADERBOARD ==================== -->
   <div id="tab-leaderboard" class="tab-content">
-    <div style="text-align: center; margin: 10px 0 5px 0; font-size: 14pt; font-weight: bold; color: #AF0A0F;">
-      🏆 Top 10 Pinakapaboritong Dagli (Base sa Upvotes)
+    <div style="text-align: center; margin: 10px 0 5px 0; font-size: 13pt; font-weight: bold; color: #AF0A0F;">
+      🏆 Top 10 Pinakapaboritong Dagli
     </div>
-    <div style="text-align:center; font-size:8.5pt; color:#666; margin-bottom: 12px;">Real-time na nag-a-update sa bawat lehitimong upvote.</div>
+    <div style="text-align:center; font-size:8.5pt; color:#666; margin-bottom: 12px;">Real-time na nag-a-update sa bawat upvote ng mga account.</div>
     <div class="table-container">
       <table class="leaderboard-table">
         <thead>
           <tr>
             <th style="width: 45px; text-align: center;">Ranggo</th>
             <th>Pamagat</th>
-            <th>May-akda (Username)</th>
+            <th>May-akda</th>
             <th>Section</th>
-            <th style="text-align: center;">▲ Upvotes</th>
+            <th style="text-align: center;">▲ Up</th>
             <th style="text-align: center;">❤️ Puso</th>
           </tr>
         </thead>
@@ -486,13 +585,104 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
     </div>
   </div>
 
-  <!-- ==================== TAB 4: TEACHER / ADMIN ==================== -->
+  <!-- ==================== TAB 4: AUTH (LOGIN / REGISTER) ==================== -->
+  <div id="tab-auth" class="tab-content">
+    <div style="max-width:550px; margin: 20px auto;">
+      
+      <!-- TOGGLE BUTTONS -->
+      <div style="display:flex; justify-content:center; gap:8px; margin-bottom:15px;">
+        <button class="btn" id="btnToggleLogin" onclick="showAuthView('login')" style="background:#B7C5D9;">Mag-Login</button>
+        <button class="btn" id="btnToggleRegister" onclick="showAuthView('register')">Gumawa ng Account</button>
+      </div>
+
+      <!-- LOGIN BOX -->
+      <div id="authLoginBox" class="form-box">
+        <h3 style="margin-top:0; color:#800000; text-align:center;">🔑 Mag-Login sa Iyong Account</h3>
+        <p style="font-size:8.5pt; color:#555; text-align:center;">Ilagay ang iyong Username at ang iyong 4-Digit PIN.</p>
+        <table class="form-table">
+          <tr>
+            <td class="label-col">Username:</td>
+            <td><input type="text" id="loginUsername" placeholder="Username mo..." autocomplete="off"></td>
+          </tr>
+          <tr>
+            <td class="label-col">4-Digit PIN:</td>
+            <td><input type="password" id="loginPin" placeholder="****" maxlength="4" pattern="[0-9]*" inputmode="numeric"></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <button class="btn" onclick="loginStudent()">Pumasok (Login)</button>
+              <div id="loginErrMsg" style="color:red; font-size:8.5pt; margin-top:6px;"></div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- REGISTER BOX -->
+      <div id="authRegisterBox" class="form-box" style="display:none;">
+        <h3 style="margin-top:0; color:#800000; text-align:center;">📝 Gumawa ng Bagong Account</h3>
+        <p style="font-size:8.5pt; color:#555; text-align:center;">Tandaan nang maayos ang iyong 4-Digit PIN!</p>
+        <table class="form-table">
+          <tr>
+            <td class="label-col">Username (Alyas):</td>
+            <td><input type="text" id="regUsername" placeholder="Hal. makata99 (Walang space)" maxlength="20"></td>
+          </tr>
+          <tr>
+            <td class="label-col">Pangalan:</td>
+            <td>
+              <div class="row-split">
+                <input type="text" id="regLastName" placeholder="Apilyido (Hal. Dela Cruz)" maxlength="25">
+                <input type="text" id="regFirstInitial" placeholder="Initial (Hal. J.)" style="max-width:130px;" maxlength="5">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-col">Kasarian:</td>
+            <td>
+              <select id="regGender">
+                <option value="" disabled selected>-- Piliin ang Kasarian --</option>
+                <option value="Lalaki">Lalaki (Male)</option>
+                <option value="Babae">Babae (Female)</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-col">Section:</td>
+            <td>
+              <select id="regSection">
+                <option value="" disabled selected>-- Pumili ng Section --</option>
+                <option value="10-ALMANZOR">10-ALMANZOR</option>
+                <option value="10-ECALNER">10-ECALNER</option>
+                <option value="10-RESUENA">10-RESUENA</option>
+                <option value="10-SEVILLA">10-SEVILLA</option>
+                <option value="10-OTCHARAN">10-OTCHARAN</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-col">4-Digit PIN:</td>
+            <td><input type="password" id="regPin" placeholder="4 na numero (Hal. 1234)" maxlength="4" pattern="[0-9]*" inputmode="numeric"></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <button class="btn" onclick="registerStudent()">I-rehistro ang Account</button>
+              <div id="regErrMsg" style="color:red; font-size:8.5pt; margin-top:6px;"></div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== TAB 5: TEACHER / ADMIN ==================== -->
   <div id="tab-admin" class="tab-content">
     
     <!-- ADMIN LOGIN -->
-    <div id="adminLockBox" style="max-width:400px; margin: 30px auto; background:#EEF2FF; border:1px solid #B7C5D9; padding:20px; text-align:center;">
+    <div id="adminLockBox" style="max-width:380px; margin: 30px auto; background:#EEF2FF; border:1px solid #B7C5D9; padding:18px; text-align:center; border-radius:3px;">
       <h3 style="margin-top:0; color:#800000;">🔒 Teacher / Admin Access</h3>
-      <p style="font-size:9pt; color:#444;">Ilagay ang iyong passcode upang makita ang statistics, listahan ng nag-pasa, mag-sort, at mag-batch delete.</p>
+      <p style="font-size:9pt; color:#444;">Ilagay ang iyong passcode upang makita ang statistics, PINs ng estudyante, at mag-batch delete.</p>
       <input type="password" id="adminPassInput" placeholder="Ilagay ang passcode..." style="text-align:center; margin-bottom:10px;">
       <br>
       <button class="btn" onclick="checkAdminLogin()">Mag-login</button>
@@ -502,17 +692,17 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
     <!-- ADMIN DASHBOARD PANEL -->
     <div id="adminPanel" style="display:none; max-width:850px; margin: 0 auto;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <h3 style="margin:0; color:#800000;">📊 Teacher Management & Section Summary</h3>
+        <h3 style="margin:0; color:#800000;">📊 Teacher Management & Summary</h3>
         <button class="btn" onclick="logoutAdmin()">Logout</button>
       </div>
 
       <!-- STATS OVERVIEW -->
       <div class="stats-grid">
         <div class="stat-card"><div class="stat-val" id="st-total">0</div><div class="stat-lbl">Kabuuang Dagli</div></div>
+        <div class="stat-card"><div class="stat-val" id="st-users">0</div><div class="stat-lbl">Mga Rehistradong Bata</div></div>
         <div class="stat-card"><div class="stat-val" id="st-male">0</div><div class="stat-lbl">Lalaki</div></div>
         <div class="stat-card"><div class="stat-val" id="st-female">0</div><div class="stat-lbl">Babae</div></div>
         <div class="stat-card"><div class="stat-val" id="st-upvotes">0</div><div class="stat-lbl">Total Upvotes</div></div>
-        <div class="stat-card"><div class="stat-val" id="st-hearts">0</div><div class="stat-lbl">Total Puso</div></div>
       </div>
 
       <!-- SECTION BREAKDOWN TABLE -->
@@ -526,18 +716,37 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
               <th style="text-align:center; width:55px;">Lalaki</th>
               <th style="text-align:center; width:55px;">Babae</th>
               <th style="text-align:center; width:65px;">Upvotes</th>
-              <th style="min-width: 250px;">Listahan ng Nakapag-pasa (A-Z)</th>
+              <th style="min-width: 230px;">Listahan ng Mag-aaral (A-Z)</th>
             </tr>
           </thead>
           <tbody id="sectionSummaryBody"></tbody>
         </table>
       </div>
 
+      <!-- STUDENTS ACCOUNT & PIN MASTER DIRECTORY -->
+      <h4 style="margin: 20px 0 6px 0; color:#0F0C5D;">🔑 Master Directory ng mga PIN ng Estudyante (Kung may makalimot):</h4>
+      <div style="font-size:8.5pt; color:#555; margin-bottom:6px;">Dito mo makikita ang 4-digit PIN ng bawat mag-aaral o palitan kung nakalimutan nila.</div>
+      <div class="table-container" style="max-height:220px; overflow-y:auto; border:1px solid #AAA; background:#FFF;">
+        <table class="admin-table" style="margin:0;">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Tunay na Pangalan</th>
+              <th>Section</th>
+              <th style="text-align:center;">4-Digit PIN</th>
+              <th style="text-align:center;">Boto (Used/5)</th>
+              <th style="text-align:center;">Aksyon</th>
+            </tr>
+          </thead>
+          <tbody id="adminUsersTableBody"></tbody>
+        </table>
+      </div>
+
       <!-- BATCH MANAGEMENT & SORTING -->
       <div style="margin: 20px 0 10px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
         <div>
-          <strong>Ayusin Ayon sa (Sort):</strong>
-          <select id="adminSortSelect" onchange="renderAdminTable()" style="width:170px; display:inline-block;">
+          <strong>Ayusin (Sort):</strong>
+          <select id="adminSortSelect" onchange="renderAdminTable()" style="width:160px; display:inline-block;">
             <option value="upvotes">Pinakamaraming Upvotes</option>
             <option value="lastName">Apilyido (A-Z)</option>
             <option value="gender">Kasarian (Gender)</option>
@@ -546,7 +755,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
           </select>
         </div>
         <div>
-          <button class="btn btn-danger" onclick="batchDeleteSelected()">🗑️ Burahin ang mga May Tsek (Batch Delete)</button>
+          <button class="btn btn-danger" onclick="batchDeleteSelected()">🗑️ Burahin ang may Tsek</button>
         </div>
       </div>
 
@@ -580,14 +789,17 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database().ref("dagli_posts");
+    const dbUsers = firebase.database().ref("dagli_users");
 
-    // Passcode Hash (87000)
+    // Passcode Hash para sa Admin (87000)
     const _SEC_HASH = "ODcwMDA=";
 
     const MAX_UPVOTES = 5;
     let allPostsData = {};
+    let allUsersData = {};
+    let currentUser = null; // Holds the logged in user object
 
-    // 2. HELPER PARA SA 30-WORD CUTOFF & GREENTEXT
+    // 2. HELPER FUNCTIONS
     function formatLines(str) {
       return (str || '').split('\n').map(line => {
         if (line.trim().startsWith('>')) {
@@ -598,18 +810,19 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
     }
 
     function getSnippet(text, wordLimit) {
+      const trimmed = (text || '').trim();
       let count = 0;
       let cutIndex = 0;
       const regex = /\S+/g;
       let match;
-      while ((match = regex.exec(text)) !== null) {
+      while ((match = regex.exec(trimmed)) !== null) {
         count++;
         if (count === wordLimit) {
           cutIndex = regex.lastIndex;
           break;
         }
       }
-      return text.slice(0, cutIndex) + '...';
+      return trimmed.slice(0, cutIndex).trim() + '...';
     }
 
     function toggleReadMore(id, showFull) {
@@ -621,25 +834,162 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
       }
     }
 
-    // 3. VOTE QUOTA TRACKER
-    function getVotedPosts() {
-      try {
-        return JSON.parse(localStorage.getItem('dagli_upvotes_voted') || '[]');
-      } catch(e) { return []; }
-    }
-    function getHeartedPosts() {
-      try {
-        return JSON.parse(localStorage.getItem('dagli_hearted_voted') || '[]');
-      } catch(e) { return []; }
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.innerText = text || '';
+      return div.innerHTML;
     }
 
-    function updateQuotaDisplay() {
-      const voted = getVotedPosts();
-      const remaining = Math.max(0, MAX_UPVOTES - voted.length);
-      const badge = document.getElementById('quotaDisplay');
-      if (badge) {
-        badge.innerText = `🎯 Natitirang Upvotes: ${remaining} / ${MAX_UPVOTES}`;
-        badge.style.color = remaining === 0 ? '#A00' : '#0F0C5D';
+    // 3. AUTHENTICATION & SESSION
+    function checkExistingSession() {
+      try {
+        const saved = localStorage.getItem('dagli_auth_session');
+        if (saved) {
+          currentUser = JSON.parse(saved);
+          updateAuthUI();
+        }
+      } catch(e) {}
+    }
+
+    function showAuthView(type) {
+      const loginBox = document.getElementById('authLoginBox');
+      const regBox = document.getElementById('authRegisterBox');
+      const btnLog = document.getElementById('btnToggleLogin');
+      const btnReg = document.getElementById('btnToggleRegister');
+
+      if (type === 'login') {
+        loginBox.style.display = 'block';
+        regBox.style.display = 'none';
+        btnLog.style.background = '#B7C5D9';
+        btnReg.style.background = '#D6DAF0';
+      } else {
+        loginBox.style.display = 'none';
+        regBox.style.display = 'block';
+        btnLog.style.background = '#D6DAF0';
+        btnReg.style.background = '#B7C5D9';
+      }
+    }
+
+    function registerStudent() {
+      const username = document.getElementById('regUsername').value.trim().toLowerCase().replace(/[^a-z0-9_]/g, '');
+      const lastName = document.getElementById('regLastName').value.trim();
+      const firstInitial = document.getElementById('regFirstInitial').value.trim();
+      const gender = document.getElementById('regGender').value;
+      const section = document.getElementById('regSection').value;
+      const pin = document.getElementById('regPin').value.trim();
+      const err = document.getElementById('regErrMsg');
+
+      if (!username || !lastName || !firstInitial || !gender || !section || !pin) {
+        err.innerText = "Paki-puno ang lahat ng impormasyon.";
+        return;
+      }
+      if (!/^\d{4}$/.test(pin)) {
+        err.innerText = "Ang PIN ay dapat eksaktong 4 na numero (Halimbawa: 1234).";
+        return;
+      }
+
+      err.innerText = "Sinusuri ang username...";
+
+      dbUsers.child(username).once('value', snapshot => {
+        if (snapshot.exists()) {
+          err.innerText = "May gumagamit na ng username na ito. Pumili ng iba.";
+          return;
+        }
+
+        const newUser = {
+          username: username,
+          lastName: lastName,
+          firstInitial: firstInitial,
+          gender: gender,
+          section: section,
+          pin: pin,
+          upvotesUsed: 0,
+          votedPosts: {},
+          heartedPosts: {}
+        };
+
+        dbUsers.child(username).set(newUser).then(() => {
+          currentUser = newUser;
+          localStorage.setItem('dagli_auth_session', JSON.stringify(currentUser));
+          alert("🎉 Tagumpay ang paggawa ng account! Maligayang pagdating, " + lastName + "!");
+          updateAuthUI();
+          switchTab('tab-home');
+        });
+      });
+    }
+
+    function loginStudent() {
+      const username = document.getElementById('loginUsername').value.trim().toLowerCase();
+      const pin = document.getElementById('loginPin').value.trim();
+      const err = document.getElementById('loginErrMsg');
+
+      if (!username || !pin) {
+        err.innerText = "Pakilagay ang iyong Username at 4-Digit PIN.";
+        return;
+      }
+
+      err.innerText = "Nagla-login...";
+
+      dbUsers.child(username).once('value', snapshot => {
+        if (!snapshot.exists()) {
+          err.innerText = "Hindi nahanap ang username na ito. Mag-rehistro muna kung wala ka pang account.";
+          return;
+        }
+
+        const user = snapshot.val();
+        if (String(user.pin).trim() !== pin) {
+          err.innerText = "Maling 4-digit PIN! Subukang muli o magtanong kay Teacher.";
+          return;
+        }
+
+        currentUser = user;
+        localStorage.setItem('dagli_auth_session', JSON.stringify(currentUser));
+        updateAuthUI();
+        alert("Maligayang pagbabalik, " + user.lastName + "!");
+        switchTab('tab-home');
+      });
+    }
+
+    function logoutStudent() {
+      if (confirm("Nais mo bang mag-logout?")) {
+        currentUser = null;
+        localStorage.removeItem('dagli_auth_session');
+        updateAuthUI();
+        renderFeed();
+      }
+    }
+
+    function updateAuthUI() {
+      const greeting = document.getElementById('navUserGreeting');
+      const btnLogout = document.getElementById('btnLogout');
+      const navAuthLink = document.getElementById('navAuthLink');
+      const loggedOutPrompt = document.getElementById('loggedOutPrompt');
+      const postBox = document.getElementById('loggedInPostBox');
+      const quotaBadge = document.getElementById('quotaDisplay');
+
+      if (currentUser) {
+        greeting.innerText = `👤 @${currentUser.username} (${currentUser.section})`;
+        btnLogout.style.display = 'inline-block';
+        navAuthLink.innerText = `👤 My Account`;
+        loggedOutPrompt.style.display = 'none';
+        postBox.style.display = 'block';
+
+        document.getElementById('authorPreviewName').innerText = `${currentUser.lastName}, ${currentUser.firstInitial}.`;
+        document.getElementById('authorPreviewSection').innerText = currentUser.section;
+
+        // Quota
+        const used = currentUser.upvotesUsed || 0;
+        const rem = Math.max(0, MAX_UPVOTES - used);
+        quotaBadge.innerText = `🎯 Boto: ${rem} / ${MAX_UPVOTES}`;
+        quotaBadge.style.color = rem === 0 ? '#A00' : '#0F0C5D';
+      } else {
+        greeting.innerText = "Naka-bisita";
+        btnLogout.style.display = 'none';
+        navAuthLink.innerText = "🔑 Login / Mag-rehistro";
+        loggedOutPrompt.style.display = 'block';
+        postBox.style.display = 'none';
+        quotaBadge.innerText = `🎯 Boto: 5 / 5`;
+        quotaBadge.style.color = '#0F0C5D';
       }
     }
 
@@ -652,24 +1002,32 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
     }
 
     // 5. REAL-TIME DATA LISTENER
-    db.on("value", (snapshot) => {
+    db.on("value", snapshot => {
       allPostsData = snapshot.val() || {};
       renderFeed();
       renderLeaderboard();
-      updateQuotaDisplay();
       if (document.getElementById('adminPanel').style.display === 'block') {
         renderAdminDashboard();
       }
     });
 
-    // 6. RENDER POSTS FEED (MAY 30-WORD READ MORE)
+    dbUsers.on("value", snapshot => {
+      allUsersData = snapshot.val() || {};
+      if (currentUser && allUsersData[currentUser.username]) {
+        currentUser = allUsersData[currentUser.username];
+        localStorage.setItem('dagli_auth_session', JSON.stringify(currentUser));
+        updateAuthUI();
+      }
+      if (document.getElementById('adminPanel').style.display === 'block') {
+        renderAdminUsersTable();
+      }
+    });
+
+    // 6. RENDER POSTS FEED
     function renderFeed() {
       const containerHome = document.getElementById('postsListHome');
       const containerAll = document.getElementById('postsListAll');
       const keys = Object.keys(allPostsData).reverse();
-
-      const votedList = getVotedPosts();
-      const heartedList = getHeartedPosts();
 
       if (keys.length === 0) {
         const emptyMsg = '<div style="text-align:center; color:#555; padding: 15px;">Wala pang ibang nai-post na dagli. Maging una sa pagsusumite!</div>';
@@ -684,38 +1042,45 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
         const comments = p.comments ? Object.values(p.comments) : [];
         const commentCount = comments.length;
 
-        // 30-WORD TRUNCATION LOGIC
-        const rawContent = p.content || '';
-        const wordCount = rawContent.trim().split(/\s+/).length;
+        // 30-word cut-off
+        const rawContent = (p.content || '').trim();
+        const wordCount = rawContent ? rawContent.split(/\s+/).length : 0;
         let bodyHtml = '';
 
         if (wordCount > 30) {
           const snippetText = getSnippet(rawContent, 30);
           bodyHtml = `
             <div id="snippet-${id}">
-              ${formatLines(snippetText)}
-              <div><span class="read-more-btn" onclick="toggleReadMore('${id}', true)">[👉 Basahin ang Kabuuan...]</span></div>
+              <div class="post-text">${formatLines(snippetText)}</div>
+              <span class="read-more-btn" onclick="toggleReadMore('${id}', true)">[👉 Basahin ang Kabuuan...]</span>
             </div>
             <div id="full-${id}" style="display:none;">
-              ${formatLines(rawContent)}
-              <div><span class="read-more-btn" onclick="toggleReadMore('${id}', false)">[▲ Itago / Show Less]</span></div>
+              <div class="post-text">${formatLines(rawContent)}</div>
+              <span class="read-more-btn" onclick="toggleReadMore('${id}', false)">[▲ Itago / Show Less]</span>
             </div>
           `;
         } else {
-          bodyHtml = formatLines(rawContent);
+          bodyHtml = `<div class="post-text">${formatLines(rawContent)}</div>`;
         }
 
         const authorReal = p.lastName && p.firstInitial 
           ? `[${escapeHtml(p.lastName)}, ${escapeHtml(p.firstInitial)}]` 
           : (p.realName ? `[${escapeHtml(p.realName)}]` : '');
 
-        const isUpvoted = votedList.includes(id);
-        const isHearted = heartedList.includes(id);
+        // Checked states
+        const isUpvoted = currentUser && p.voters && p.voters[currentUser.username];
+        const isHearted = currentUser && p.hearters && p.hearters[currentUser.username];
 
         const upBtnText = isUpvoted ? `▲ Na-Upvote (${p.upvotes || 0})` : `▲ Upvote (${p.upvotes || 0})`;
         const heartBtnText = isHearted ? `❤️ Na-Pusuan (${p.hearts || 0})` : `❤️ Puso (${p.hearts || 0})`;
         const upClass = isUpvoted ? 'action-btn voted' : 'action-btn';
         const heartClass = isHearted ? 'action-btn hearted' : 'action-btn';
+
+        // Own delete button
+        const isOwner = currentUser && (currentUser.username === p.username);
+        const ownDeleteHtml = isOwner 
+          ? `<span class="action-btn delete-btn" onclick="deleteMyOwnPost('${id}')">[Burahin ang Aking Post]</span>` 
+          : '';
 
         let commentsListHtml = '';
         comments.forEach(c => {
@@ -739,15 +1104,14 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
               <span class="${upClass}" onclick="upvote('${id}')">${upBtnText}</span>
               <span class="${heartClass}" onclick="heartReaction('${id}')">${heartBtnText}</span>
               <span class="action-btn" onclick="toggleComments('${id}')">💬 Komento (<span id="c-count-${id}">${commentCount}</span>)</span>
-              <span class="action-btn" onclick="singleDelete('${id}')" style="color:#A00;">[Burahin]</span>
+              ${ownDeleteHtml}
             </div>
             
             <div class="comments-wrapper" id="comments-${id}">
               <div id="comments-items-${id}">${commentsListHtml || '<div style="color:#888; font-size:8pt;">Wala pang komento.</div>'}</div>
               <div class="comment-input-row">
-                <input type="text" id="c-name-${id}" placeholder="Pangalan mo..." style="max-width:130px;" maxlength="25">
                 <input type="text" id="c-text-${id}" placeholder="Mag-iwan ng komento..." maxlength="150">
-                <button class="btn" id="c-btn-${id}" onclick="submitComment('${id}')">I-send</button>
+                <button class="btn" id="c-btn-${id}" onclick="submitComment('${id}')" style="width:auto; padding:4px 10px;">I-send</button>
               </div>
             </div>
           </div>
@@ -758,56 +1122,21 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
       containerAll.innerHTML = html;
     }
 
-    // 7. UPVOTE (5 MAX QUOTA)
-    function upvote(id) {
-      const voted = getVotedPosts();
-
-      if (voted.includes(id)) {
-        alert("⚠️ Nakapag-upvote ka na sa dagling ito! (Isang boto lamang bawat kwento).");
-        return;
-      }
-
-      if (voted.length >= MAX_UPVOTES) {
-        alert("⚠️ Naubos mo na ang iyong alokasyon! Hanggang 5 upvotes lamang ang pinapayagan bawat mag-aaral.");
-        return;
-      }
-
-      voted.push(id);
-      localStorage.setItem('dagli_upvotes_voted', JSON.stringify(voted));
-      updateQuotaDisplay();
-
-      db.child(id).child('upvotes').transaction(cur => (cur || 0) + 1);
-    }
-
-    // 8. HEARTS (1 PER POST)
-    function heartReaction(id) {
-      const hearted = getHeartedPosts();
-
-      if (hearted.includes(id)) {
-        alert("⚠️ Naka-puso reaction ka na sa dagling ito!");
-        return;
-      }
-
-      hearted.push(id);
-      localStorage.setItem('dagli_hearted_voted', JSON.stringify(hearted));
-
-      db.child(id).child('hearts').transaction(cur => (cur || 0) + 1);
-    }
-
-    // 9. SUBMIT POST
+    // 7. SUBMIT POST (GAMIT ANG CURRENT USER)
     function submitDagli() {
-      const username = document.getElementById('username').value.trim();
-      const lastName = document.getElementById('lastName').value.trim();
-      const firstInitial = document.getElementById('firstInitial').value.trim();
-      const gender = document.getElementById('gender').value;
-      const section = document.getElementById('section').value;
-      const title = document.getElementById('title').value.trim();
-      const content = document.getElementById('content').value.trim();
-      const status = document.getElementById('statusMsg');
-      const btn = document.getElementById('btnPost');
+      if (!currentUser) {
+        alert("Paki-login muna ang iyong account bago mag-post.");
+        switchTab('tab-auth');
+        return;
+      }
 
-      if (!username || !lastName || !firstInitial || !gender || !section || !title || !content) {
-        alert("Paki-puno lahat ng patlang (Username, Apilyido, Initial, Kasarian, Section, Pamagat, at Kwento).");
+      const title = document.getElementById('postTitle').value.trim();
+      const content = document.getElementById('postContent').value.trim();
+      const status = document.getElementById('postStatusMsg');
+      const btn = document.getElementById('btnSubmitPost');
+
+      if (!title || !content) {
+        alert("Paki-puno ang Pamagat at ang iyong Kwento.");
         return;
       }
 
@@ -819,21 +1148,23 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
                       ' ' + now.toLocaleTimeString();
 
       db.push({
-        username,
-        lastName,
-        firstInitial,
-        gender,
-        section,
-        title,
-        content,
+        username: currentUser.username,
+        lastName: currentUser.lastName,
+        firstInitial: currentUser.firstInitial,
+        gender: currentUser.gender,
+        section: currentUser.section,
+        title: title,
+        content: content,
         upvotes: 0,
         hearts: 0,
+        voters: {},
+        hearters: {},
         timestamp: Date.now(),
         date: dateStr
       }).then(() => {
         status.innerText = "Nai-post na!";
-        document.getElementById('title').value = '';
-        document.getElementById('content').value = '';
+        document.getElementById('postTitle').value = '';
+        document.getElementById('postContent').value = '';
         btn.disabled = false;
         setTimeout(() => { status.innerText = ''; }, 3000);
       }).catch(err => {
@@ -841,6 +1172,55 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
         btn.disabled = false;
         status.innerText = "";
       });
+    }
+
+    // 8. UPVOTES (ACCOUNT-BASED, 5 MAX QUOTA)
+    function upvote(id) {
+      if (!currentUser) {
+        alert("⚠️ Kailangan mong mag-login muna sa iyong account upang makaboto!");
+        switchTab('tab-auth');
+        return;
+      }
+
+      const post = allPostsData[id];
+      if (!post) return;
+
+      if (post.voters && post.voters[currentUser.username]) {
+        alert("⚠️ Nakapag-upvote ka na sa dagling ito! (1 boto lamang bawat kwento).");
+        return;
+      }
+
+      const currentUsed = currentUser.upvotesUsed || 0;
+      if (currentUsed >= MAX_UPVOTES) {
+        alert("⚠️ Naubos mo na ang iyong 5 upvotes quota! Salamat sa iyong pagboto.");
+        return;
+      }
+
+      // Update post and user in Firebase
+      db.child(id).child('upvotes').transaction(cur => (cur || 0) + 1);
+      db.child(id).child('voters').child(currentUser.username).set(true);
+
+      dbUsers.child(currentUser.username).child('upvotesUsed').transaction(cur => (cur || 0) + 1);
+    }
+
+    // 9. HEARTS (1 PER POST)
+    function heartReaction(id) {
+      if (!currentUser) {
+        alert("⚠️ Kailangan mong mag-login muna sa iyong account upang mag-react ng puso!");
+        switchTab('tab-auth');
+        return;
+      }
+
+      const post = allPostsData[id];
+      if (!post) return;
+
+      if (post.hearters && post.hearters[currentUser.username]) {
+        alert("⚠️ Naka-heart reaction ka na sa dagling ito!");
+        return;
+      }
+
+      db.child(id).child('hearts').transaction(cur => (cur || 0) + 1);
+      db.child(id).child('hearters').child(currentUser.username).set(true);
     }
 
     // 10. COMMENTS
@@ -852,10 +1232,14 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
     }
 
     function submitComment(postId) {
-      const nameInput = document.getElementById('c-name-' + postId);
+      if (!currentUser) {
+        alert("Paki-login muna ang iyong account bago mag-iwan ng komento.");
+        switchTab('tab-auth');
+        return;
+      }
+
       const textInput = document.getElementById('c-text-' + postId);
       const sendBtn = document.getElementById('c-btn-' + postId);
-      const author = nameInput.value.trim() || 'Kaklase';
       const text = textInput.value.trim();
 
       if (!text) {
@@ -866,7 +1250,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
       sendBtn.disabled = true;
 
       db.child(postId).child('comments').push({
-        author: author,
+        author: `@${currentUser.username} (${currentUser.lastName})`,
         text: text,
         date: new Date().toLocaleTimeString()
       }).then(() => {
@@ -875,32 +1259,39 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
       }).catch(() => { sendBtn.disabled = false; });
     }
 
-    // 11. SAMPLE POST (LOCAL)
+    // 11. DELETE OWN POST
+    function deleteMyOwnPost(id) {
+      if (confirm("Sigurado ka bang nais mong burahin ang sarili mong dagli?")) {
+        db.child(id).remove().then(() => alert("Tagumpay na nabura ang iyong dagli."));
+      }
+    }
+
+    // 12. SAMPLE POST (LOCAL)
     function sampleUpvote(btn) {
       const span = btn.querySelector('.s-up');
       span.innerText = parseInt(span.innerText) + 1;
-      btn.style.color = '#117743';
+      btn.classList.add('voted');
     }
     function sampleHeart(btn) {
       const span = btn.querySelector('.s-heart');
       span.innerText = parseInt(span.innerText) + 1;
-      btn.style.color = '#C00';
+      btn.classList.add('hearted');
     }
     function addSampleComment() {
-      const name = document.getElementById('c-name-sample').value.trim() || 'Kaklase';
       const text = document.getElementById('c-text-sample').value.trim();
       if (!text) return;
+      const author = currentUser ? `@${currentUser.username}` : 'Kaklase';
       const wrap = document.getElementById('comments-sample');
       const newDiv = document.createElement('div');
       newDiv.className = 'comment-item';
-      newDiv.innerHTML = `<span class="comment-user">${escapeHtml(name)}:</span> ${escapeHtml(text)}`;
+      newDiv.innerHTML = `<span class="comment-user">${escapeHtml(author)}:</span> ${escapeHtml(text)}`;
       wrap.insertBefore(newDiv, wrap.lastElementChild);
       document.getElementById('c-text-sample').value = '';
       const c = document.getElementById('count-sample');
       c.innerText = parseInt(c.innerText) + 1;
     }
 
-    // 12. LEADERBOARD
+    // 13. LEADERBOARD
     function renderLeaderboard() {
       const tbody = document.getElementById('leaderboardBody');
       const postsArray = Object.keys(allPostsData).map(k => ({ id: k, ...allPostsData[k] }));
@@ -936,7 +1327,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
       tbody.innerHTML = html;
     }
 
-    // 13. ADMIN LOGIN
+    // 14. ADMIN LOGIN & DASHBOARD
     function checkAdminLogin() {
       const val = document.getElementById('adminPassInput').value.trim();
       const err = document.getElementById('adminLoginErr');
@@ -945,6 +1336,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
         document.getElementById('adminPanel').style.display = 'block';
         err.innerText = '';
         renderAdminDashboard();
+        renderAdminUsersTable();
       } else {
         err.innerText = "Maling passcode! Pakisubukang muli.";
       }
@@ -958,8 +1350,9 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
 
     function renderAdminDashboard() {
       const posts = Object.keys(allPostsData).map(k => ({ id: k, ...allPostsData[k] }));
+      const userCount = Object.keys(allUsersData).length;
 
-      let maleCount = 0, femaleCount = 0, totalUp = 0, totalHeart = 0;
+      let maleCount = 0, femaleCount = 0, totalUp = 0;
       const sectionStats = {
         "10-ALMANZOR": { count: 0, male: 0, female: 0, upvotes: 0, students: [] },
         "10-ECALNER":  { count: 0, male: 0, female: 0, upvotes: 0, students: [] },
@@ -972,7 +1365,6 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
         if (p.gender === 'Lalaki') maleCount++;
         if (p.gender === 'Babae') femaleCount++;
         totalUp += (p.upvotes || 0);
-        totalHeart += (p.hearts || 0);
 
         if (sectionStats[p.section]) {
           sectionStats[p.section].count++;
@@ -994,10 +1386,10 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
       });
 
       document.getElementById('st-total').innerText = posts.length;
+      document.getElementById('st-users').innerText = userCount;
       document.getElementById('st-male').innerText = maleCount;
       document.getElementById('st-female').innerText = femaleCount;
       document.getElementById('st-upvotes').innerText = totalUp;
-      document.getElementById('st-hearts').innerText = totalHeart;
 
       let secHtml = '';
       for (const [secName, data] of Object.entries(sectionStats)) {
@@ -1038,6 +1430,42 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
       renderAdminTable();
     }
 
+    // 15. MASTER DIRECTORY NG MGA PIN (PARA KAY TEACHER)
+    function renderAdminUsersTable() {
+      const users = Object.keys(allUsersData).map(k => ({ id: k, ...allUsersData[k] }));
+      users.sort((a, b) => (a.lastName || '').localeCompare(b.lastName || ''));
+
+      let html = '';
+      users.forEach(u => {
+        html += `
+          <tr>
+            <td><strong>@${escapeHtml(u.username)}</strong></td>
+            <td>${escapeHtml(u.lastName)}, ${escapeHtml(u.firstInitial)}.</td>
+            <td>${escapeHtml(u.section)}</td>
+            <td style="text-align:center; font-weight:bold; color:#A00;">${escapeHtml(u.pin)}</td>
+            <td style="text-align:center;">${u.upvotesUsed || 0} / 5</td>
+            <td style="text-align:center;">
+              <button class="btn" style="padding:2px 6px; font-size:7.5pt;" onclick="adminResetPin('${u.username}')">Palitan PIN</button>
+            </td>
+          </tr>
+        `;
+      });
+
+      document.getElementById('adminUsersTableBody').innerHTML = html || '<tr><td colspan="6" style="text-align:center;">Wala pang rehistradong mag-aaral.</td></tr>';
+    }
+
+    function adminResetPin(username) {
+      const newPin = prompt(`Ilagay ang bagong 4-digit PIN para kay @${username}:`);
+      if (!newPin) return;
+      if (!/^\d{4}$/.test(newPin.trim())) {
+        alert("Dapat eksaktong 4 na numero!");
+        return;
+      }
+      dbUsers.child(username).update({ pin: newPin.trim() }).then(() => {
+        alert("Tagumpay na napalitan ang PIN!");
+      });
+    }
+
     function renderAdminTable() {
       const sortType = document.getElementById('adminSortSelect').value;
       const posts = Object.keys(allPostsData).map(k => ({ id: k, ...allPostsData[k] }));
@@ -1072,7 +1500,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
       document.getElementById('adminTableBody').innerHTML = tbodyHtml || '<tr><td colspan="8" style="text-align:center;">Walang nakitang post.</td></tr>';
     }
 
-    // 14. BATCH & SINGLE DELETE
+    // 16. BATCH DELETE
     function toggleSelectAll(master) {
       document.querySelectorAll('.post-check').forEach(cb => cb.checked = master.checked);
     }
@@ -1097,30 +1525,14 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.
       }).catch(err => alert("Error: " + err.message));
     }
 
-    function singleDelete(id) {
-      const code = prompt("Admin Authorization Required.\nIlagay ang passcode para burahin ang post:");
-      if (!code) return;
-      if (btoa(code.trim()) === _SEC_HASH) {
-        db.child(id).remove().then(() => alert("Tagumpay na nabura ang dagli!"));
-      } else {
-        alert("Maling Admin Code!");
-      }
-    }
-
     function deleteDirect(id) {
       if (confirm("Sigurado ka bang nais burahin ang dagling ito?")) {
         db.child(id).remove();
       }
     }
 
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.innerText = text || '';
-      return div.innerHTML;
-    }
-
-    // Init
-    updateQuotaDisplay();
+    // INITIALIZE SESSION
+    checkExistingSession();
   </script>
 </body>
 </html>
