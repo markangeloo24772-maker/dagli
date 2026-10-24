@@ -2,7 +2,7 @@
 <html lang="tl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>/dagli/ - Flash Fiction Board</title>
   
   <!-- Firebase Scripts -->
@@ -412,6 +412,97 @@
       .action-btn { padding: 5px 9px; font-size: 8.5pt; }
       .action-btn.delete-btn { margin-left: 0; }
     }
+    [hidden] { display: none !important; }
+    html { scroll-behavior: smooth; }
+    body { font-size: 14px; line-height: 1.5; }
+    button, input, select, textarea { font: inherit; }
+    a { color: #242964; }
+    a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid #4169b1; outline-offset: 3px; }
+    .nav-links a[aria-current="page"] { background: #cbd5eb; color: #16163b; }
+    .board-notice, .participation-reminder, .feed-controls, #announcementsList { max-width: 850px; margin: 12px auto; }
+    .board-notice { padding: 10px 14px; background: #edf6ec; border: 1px solid #9cbd99; color: #18391c; }
+    .board-notice.error { background: #fff0df; border-color: #c69d63; color: #5c3510; }
+    .participation-reminder { background: #eef2ff; border: 1px solid #b7c5d9; padding: 12px 14px; color: #242964; }
+    .participation-reminder p { margin: 5px 0; }
+    .section-votes { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .section-vote { background: #fff; border: 1px solid #aab5cd; padding: 3px 7px; border-radius: 3px; font-size: 12px; }
+    .section-vote.done { background: #dfeedd; border-color: #80a878; color: #254921; }
+    .feed-controls { display: flex; gap: 10px; align-items: end; color: #34345c; }
+    .feed-controls label { display: flex; flex-direction: column; gap: 3px; font-size: 12px; font-weight: bold; }
+    .feed-controls select, .feed-controls input { padding: 9px; font-size: 14px; width: 100%; border: 1px solid #aaa; border-radius: 3px; background: white; min-height: 42px; }
+    .search-control { flex: 1; }
+    .post-card { display: block; width: 100%; max-width: 850px; min-width: 0; margin: 0; padding: 13px 15px; color: #24212a; }
+    .box-rose { --post-bg: #f3e2df; --post-border: #b56a67; background: var(--post-bg); border-color: #cfaaa6; border-left: 4px solid var(--post-border); }
+    .box-blue { --post-bg: #e4ecf7; --post-border: #507ca8; background: var(--post-bg); border-color: #b3c7df; border-left: 4px solid var(--post-border); }
+    .box-green { --post-bg: #e4f0e3; --post-border: #578653; background: var(--post-bg); border-color: #b2cbb0; border-left: 4px solid var(--post-border); }
+    .box-purple { --post-bg: #ece5f5; --post-border: #84629f; background: var(--post-bg); border-color: #c5b4d5; border-left: 4px solid var(--post-border); }
+    .box-gold { --post-bg: #f7efd9; --post-border: #9b7a2c; background: var(--post-bg); border-color: #d4c393; border-left: 4px solid var(--post-border); }
+    .box-gray { --post-bg: #ebedf0; --post-border: #777f8b; background: var(--post-bg); border-color: #c0c5ce; border-left: 4px solid var(--post-border); }
+    .post-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .post-heading .post-title { margin: 0; font-size: 19px; line-height: 1.35; flex: 1; overflow-wrap: anywhere; }
+    .post-title a { color: #22275c; text-decoration: none; }
+    .post-title a:hover { text-decoration: underline; }
+    .post-heading .post-user { font-size: 17px; text-align: right; overflow-wrap: anywhere; max-width: 45%; }
+    .student-link { color: #195539; text-decoration: none; font-weight: bold; }
+    .student-link:hover { text-decoration: underline; }
+    .post-meta { color: #51515a; font-size: 12px; margin-top: 5px; }
+    .post-text { font-size: 16px; line-height: 1.65; color: #222; overflow-wrap: anywhere; }
+    .greentext { color: #446516; }
+    .story-expand > summary { cursor: pointer; padding: 5px 0; color: #242964; font-weight: bold; font-size: 13px; }
+    .story-expand[open] + .story-snippet { display: none; }
+    .story-full { padding-top: 8px; }
+    .story-expand:not([open]) { display: flex; }
+    .actions { gap: 7px; }
+    .action-btn { display: inline-flex; align-items: center; min-height: 38px; font-size: 12px; text-decoration: none; padding: 6px 10px; color: #30305a; }
+    .action-btn:disabled { cursor: default; opacity: .65; }
+    .voters-expand, .comments-expand { margin-top: 10px; font-size: 13px; }
+    .voters-expand > summary, .comments-expand > summary { cursor: pointer; min-height: 32px; padding: 5px 0; font-weight: bold; color: #30305a; }
+    .voter-list { padding: 6px 0; line-height: 1.9; overflow-wrap: anywhere; }
+    .comment-list { margin-top: 5px; }
+    .comment-item { padding: 10px 0; font-size: 14px; }
+    .comment-item p { white-space: pre-wrap; overflow-wrap: anywhere; margin: 4px 0; }
+    .comment-form { margin-top: 10px; }
+    .comment-form label { display: block; font-size: 12px; }
+    .comment-form textarea { height: 76px; min-height: 76px; font-size: 16px; margin-top: 4px; }
+    .comment-form .btn { margin-top: 6px; min-height: 40px; }
+    .color-preview { padding: 9px 12px; margin-top: 5px; color: #24212a; }
+    .empty-state { padding: 20px; text-align: center; color: #62626a; }
+    .detail-page { max-width: 850px; margin: 16px auto; }
+    .back-link { display: inline-block; padding: 8px 0; margin-bottom: 10px; font-weight: bold; }
+    .profile-header { padding: 18px; background: #eef2ff; border: 1px solid #b7c5d9; color: #29294e; }
+    .profile-header h1 { margin: 0; overflow-wrap: anywhere; }
+    .profile-header p { margin: 7px 0; }
+    .profile-stats { display: flex; gap: 16px; flex-wrap: wrap; padding: 8px 0; }
+    .profile-stats span { background: white; padding: 7px 10px; border: 1px solid #c9d2e5; }
+    .profile-header progress { width: 100%; height: 14px; accent-color: #477a45; }
+    .profile-jumps { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 12px; }
+    #studentProfileContent section { scroll-margin-top: 120px; margin: 25px 0; }
+    #studentProfileContent section > h2 { font-size: 18px; }
+    .activity-list { background: #f0e0d6; border: 1px solid #d9bfb7; padding: 16px 24px; color: #303038; }
+    .activity-list li { margin-bottom: 10px; }
+    .activity-comment { border-bottom: 1px solid #ccbcb4; padding: 8px 0; }
+    .activity-comment:last-child { border-bottom: 0; }
+    .activity-comment p { white-space: pre-wrap; overflow-wrap: anywhere; margin: 3px 0 8px; }
+    .announcements-drawer { background: #fff4d5; border: 1px solid #d2bc7e; padding: 10px 14px; color: #554417; }
+    .announcements-drawer > summary { cursor: pointer; font-weight: bold; }
+    .post-card.sample { margin-top: 24px; max-width: 850px; }
+    .muted { color: #62626a; }
+    .post-composer > summary, .bulletin-box > summary { cursor: pointer; font-weight: bold; color: #29295c; padding: 4px 0; }
+    .post-composer[open] > summary { margin-bottom: 12px; }
+    .leaderboard-table a, .admin-table a { text-underline-offset: 3px; }
+    @media (max-width: 640px) {
+      .feed-controls { flex-wrap: wrap; }
+      .feed-controls label { flex: 1; min-width: 130px; }
+      .feed-controls .search-control { flex-basis: 100%; }
+      .post-card { padding: 12px; }
+      .post-heading .post-title { font-size: 17px; display: block; }
+      .post-heading .post-user { font-size: 16px; }
+      .post-text { font-size: 16px; line-height: 1.6; }
+      .action-btn { min-height: 42px; }
+      .nav-links { justify-content: flex-start; }
+      .nav-links a { padding: 8px; min-height: 36px; }
+    }
+
   </style>
 </head>
 <body>
@@ -419,11 +510,11 @@
   <!-- TOP NAVBAR -->
   <div class="top-navbar">
     <div class="nav-links">
-      <a onclick="switchTab('tab-home')">🏠 Home</a>
-      <a onclick="switchTab('tab-posts')">📖 Lahat ng Dagli</a>
-      <a onclick="switchTab('tab-leaderboard')">🏆 Top 10</a>
-      <a onclick="switchTab('tab-auth')" id="navAuthLink">🔑 Login / Mag-rehistro</a>
-      <a onclick="switchTab('tab-admin')">🔒 Teacher Panel</a>
+      <a href="#/home">🏠 Home</a>
+      <a href="#/all">📖 Lahat ng Dagli</a>
+      <a href="#/top">🏆 Top 10</a>
+      <a href="#/account" id="navAuthLink">🔑 Login / Mag-rehistro</a>
+      <a href="#/admin">🔒 Teacher Panel</a>
     </div>
     
     <!-- USER STATUS -->
@@ -437,21 +528,24 @@
   <!-- HEADER -->
   <div class="board-header">
     <div class="board-title">/dagli/</div>
-    <div class="board-subtitle">Text-Only Flash Fiction Bulletin Board &bull; May Account at 4-Digit PIN</div>
   </div>
 
+<div id="boardNotice" class="board-notice" role="status" aria-live="polite" hidden></div>
+<div id="participationReminder" class="participation-reminder" hidden></div>
+<div id="feedControls" class="feed-controls"><label>Ayos<select id="feedSort"><option value="hot">Patok ngayon</option><option value="new">Bago</option><option value="top">Pinakamaraming boto</option></select></label><label>Section<select id="feedSection"><option value="">Lahat ng section</option><option value="10-ALMANZOR">10-ALMANZOR</option><option value="10-ECALNER">10-ECALNER</option><option value="10-RESUENA">10-RESUENA</option><option value="10-SEVILLA">10-SEVILLA</option><option value="10-OTCHARAN">10-OTCHARAN</option></select></label><label class="search-control">Hanap<input type="search" id="feedSearch" placeholder="Pamagat, may-akda, o salita…"></label></div>
   <!-- ==================== TAB 1: HOME & SUBMIT ==================== -->
   <div id="tab-home" class="tab-content active">
     
     <!-- BULLETIN -->
-    <div class="bulletin-box">
-      <strong>&#128204; Panuntunan sa /dagli/ (Flash Fiction):</strong>
+    <details class="bulletin-box"><summary>📌 Panuntunan at participation</summary>
+
       <ul style="margin: 4px 0 0 16px; padding: 0;">
         <li>Siguraduhing maikli, orihinal, at may buong kaisipan ang dagli.</li>
-        <li><strong>Isang (1) Account Lamang:</strong> Bawal ang dobleng account. Mayroon kang <strong>5 upvotes lamang</strong> sa iyong account (1 boto bawat kwento).</li>
+        <li><strong>Isang account bawat mag-aaral:</strong> May <strong>1 boto bawat section</strong> (5 lahat). Bawal sa sariling dagli. Nakikita ng lahat ang bumoto.</li>
+        <li><strong>Participation:</strong> Mag-iwan ng hindi bababa sa 3 comments sa mga dagli sa buong board. Hindi counted ang sample at announcements.</li>
         <li><strong>Greentext:</strong> Magsimula ng linya gamit ang <code>&gt;</code> para maging berde ang teksto.</li>
       </ul>
-    </div>
+    </details>
 
     <!-- AUTH REMINDER (KUNG HINDI NAKA-LOGIN) -->
     <div id="loggedOutPrompt" class="auth-alert-banner">
@@ -459,18 +553,20 @@
     </div>
 
     <!-- SUBMISSION FORM (LILITAW LANG KAPAG NAKA-LOGIN) -->
-    <div class="form-box" id="loggedInPostBox" style="display:none;">
+    <details class="form-box post-composer" id="loggedInPostBox" style="display:none;"><summary>✍️ Gumawa ng dagli o anunsyo</summary>
       <div style="font-weight:bold; color:#0F0C5D; margin-bottom:8px; border-bottom:1px solid #B7C5D9; padding-bottom:4px;">
         ✍️ Mag-post ng Dagli bilang si: <span id="authorPreviewName" style="color:#117743;"></span> (<span id="authorPreviewSection"></span>)
       </div>
       <table class="form-table">
+<tr><td class="label-col"><label for="postKind">Uri ng post:</label></td><td><select id="postKind"><option value="story">Dagli</option><option value="announcement">📢 Anunsyo</option></select></td></tr>
+<tr><td class="label-col"><label for="postColor">Kulay ng box:</label></td><td><select id="postColor"><option value="rose">Rosas</option><option value="blue">Asul</option><option value="green">Berde</option><option value="purple">Lila</option><option value="gold">Dilaw</option><option value="gray">Abo</option></select><div id="colorPreview" class="color-preview box-rose">Ganito ang kulay ng post box mo.</div></td></tr>
         <tr>
-          <td class="label-col">Pamagat ng Dagli:</td>
+          <td class="label-col"><label for="postTitle">Pamagat:</label></td>
           <td><input type="text" id="postTitle" placeholder="Pamagat ng kwento..." maxlength="80"></td>
         </tr>
         <tr>
-          <td class="label-col">Dagli (Kwento):</td>
-          <td><textarea id="postContent" placeholder="Isulat dito ang iyong flash fiction... Simulan sa '>' ang linya para maging greentext."></textarea></td>
+          <td class="label-col"><label for="postContent">Nilalaman:</label></td>
+          <td><textarea id="postContent" maxlength="10000" placeholder="Isulat dito ang iyong flash fiction... Simulan sa '>' ang linya para maging greentext."></textarea></td>
         </tr>
         <tr>
           <td></td>
@@ -480,19 +576,20 @@
           </td>
         </tr>
       </table>
-    </div>
+    </details>
 
     <div style="text-align: center; margin: 18px 0; font-size: 11pt; font-weight: bold; color: #800000;">
-      ─── MGA KABABAGONG DAGLI ───
+      ─── MGA DAGLI ───
     </div>
     
+    <div id="announcementsList"></div>
     <div class="posts-wrapper">
       <!-- SAMPLE PINNED POST (ENSAYMADA) -->
-      <div class="post-card sample">
+      <div class="post-card sample" id="samplePostCard">
         <div class="post-header">
           <span class="post-title">ENSAYMADA</span> &nbsp;
           <span class="post-user">Ed Cabudbud</span>
-          <span class="badge badge-sample">📌 SAMPLE</span>
+          <span class="badge badge-sample">HALIMBAWA · Hindi counted sa participation</span>
           <span class="badge">10-Rizal</span>
           <span class="post-author-sub">Tunay: [Cabudbud, E.] &bull; Petsa: Halimbawa</span>
         </div>
@@ -755,7 +852,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
     <!-- ADMIN LOGIN -->
     <div id="adminLockBox" style="max-width:380px; margin: 30px auto; background:#EEF2FF; border:1px solid #B7C5D9; padding:18px; text-align:center; border-radius:3px;">
       <h3 style="margin-top:0; color:#800000;">🔒 Teacher / Admin Access</h3>
-      <p style="font-size:9pt; color:#444;">Ilagay ang iyong passcode upang makita ang statistics, PINs ng estudyante, at magbura/mag-ayos ng account.</p>
+      <p style="font-size:9pt; color:#444;">Ilagay ang passcode para makita ang participation at pamahalaan ang board.</p>
       <input type="password" id="adminPassInput" placeholder="Ilagay ang passcode..." style="text-align:center; margin-bottom:10px;">
       <br>
       <button class="btn" onclick="checkAdminLogin()">Mag-login</button>
@@ -798,7 +895,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
 
       <!-- STUDENTS ACCOUNT & PIN MASTER DIRECTORY -->
       <h4 style="margin: 20px 0 6px 0; color:#0F0C5D;">👥 Master Directory ng mga Mag-aaral (Ayusin o Burahin):</h4>
-      <div style="font-size:8.5pt; color:#555; margin-bottom:6px;">Dito mo makikita ang PIN, maaari mong ayusin ang maling pangalan/username, o burahin ang account kung nagkamali sila.</div>
+      <div style="font-size:8.5pt; color:#555; margin-bottom:6px;">I-click ang pangalan para makita ang posts, mga binoto, at comments. Minimum: 3 comments sa mga dagli sa buong board.</div>
       <div class="table-container" style="max-height:260px; overflow-y:auto; border:1px solid #AAA; background:#FFF;">
         <table class="admin-table" style="margin:0;">
           <thead>
@@ -806,8 +903,9 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
               <th>Username</th>
               <th>Tunay na Pangalan</th>
               <th>Section</th>
-              <th style="text-align:center;">4-Digit PIN</th>
-              <th style="text-align:center;">Boto</th>
+              <th style="text-align:center;">Ibinigay na boto</th>
+              <th style="text-align:center;">Comments sa dagli</th>
+              <th style="text-align:center;">Mga pinasa</th>
               <th style="text-align:center; min-width:180px;">Aksyon sa Account</th>
             </tr>
           </thead>
@@ -854,6 +952,8 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
     </div>
   </div>
 
+<main id="tab-thread" class="tab-content detail-page"><a class="back-link" href="#/home">← Bumalik sa board</a><div id="threadContent" class="posts-wrapper"></div></main>
+<main id="tab-student" class="tab-content detail-page"><a class="back-link" href="#/home">← Bumalik sa board</a><div id="studentProfileContent"></div></main>
   <!-- JAVASCRIPT & DATABASE LOGIC -->
   <script>
     // 1. FIREBASE CONFIGURATION
@@ -907,11 +1007,6 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       }
     }
 
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.innerText = text || '';
-      return div.innerHTML;
-    }
 
     // 3. AUTHENTICATION & SESSION
     function checkExistingSession() {
@@ -1011,7 +1106,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
 
         dbUsers.child(username).set(newUser).then(() => {
           currentUser = newUser;
-          localStorage.setItem('dagli_auth_session', JSON.stringify(currentUser));
+          localStorage.setItem('dagli_auth_session', JSON.stringify({username:currentUser.username,createdAt:currentUser.createdAt}));
           alert("🎉 Tagumpay ang paggawa ng account! Maligayang pagdating, " + lastName + "!");
           updateAuthUI();
           switchTab('tab-home');
@@ -1044,7 +1139,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
         }
 
         currentUser = user;
-        localStorage.setItem('dagli_auth_session', JSON.stringify(currentUser));
+        localStorage.setItem('dagli_auth_session', JSON.stringify({username:currentUser.username,createdAt:currentUser.createdAt}));
         updateAuthUI();
         alert("Maligayang pagbabalik, " + user.lastName + "!");
         switchTab('tab-home');
@@ -1061,7 +1156,7 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
     }
 
     // UPDATE UI DEPENDE SA AUTH STATE
-    function updateAuthUI() {
+    function legacyUpdateAuthUI() {
       const greeting = document.getElementById('navUserGreeting');
       const btnLogout = document.getElementById('btnLogout');
       const navAuthLink = document.getElementById('navAuthLink');
@@ -1114,142 +1209,6 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
     }
 
     // 4. STUDENT CAN EDIT OWN USERNAME & DETAILS
-    function saveProfileChanges() {
-      if (!currentUser) return;
-
-      const oldUsername = currentUser.username;
-      const rawUser = document.getElementById('editUsername').value.trim();
-      const newUsername = rawUser.toLowerCase().replace(/[^a-z0-9_]/g, '');
-      const newLast = document.getElementById('editLastName').value.trim();
-      const newInit = document.getElementById('editFirstInitial').value.trim();
-      const newGender = document.getElementById('editGender').value;
-      const newSection = document.getElementById('editSection').value;
-      const newPin = document.getElementById('editPin').value.trim();
-      const status = document.getElementById('editStatusMsg');
-
-      if (!newUsername || newUsername.length < 3) {
-        status.style.color = "red";
-        status.innerText = "Ang Username ay dapat may hindi bababa sa 3 titik o numero (walang espasyo).";
-        return;
-      }
-      if (!newLast || !newInit || !newGender || !newSection || !newPin) {
-        status.style.color = "red";
-        status.innerText = "Paki-puno ang lahat ng impormasyon.";
-        return;
-      }
-      if (!/^\d{4}$/.test(newPin)) {
-        status.style.color = "red";
-        status.innerText = "Ang PIN ay dapat eksaktong 4 na numero.";
-        return;
-      }
-
-      status.style.color = "#0F0C5D";
-      status.innerText = "Sinusuri ang impormasyon...";
-
-      dbUsers.once('value', snapshot => {
-        const users = snapshot.val() || {};
-
-        // 1. Kung nagpalit ng username, tingnan kung may iba nang gumagamit
-        if (newUsername !== oldUsername) {
-          const isTaken = Object.keys(users).some(k => k.toLowerCase() === newUsername && k.toLowerCase() !== oldUsername.toLowerCase());
-          if (isTaken) {
-            status.style.color = "red";
-            status.innerText = `May gumagamit na ng Username na "${newUsername}". Pumili ng iba.`;
-            return;
-          }
-        }
-
-        // 2. Tingnan kung may kaparehong apilyido at initial sa section na ibang tao
-        const normLast = newLast.toLowerCase().replace(/\s+/g, '');
-        const normInit = newInit.toLowerCase().replace(/[^a-z]/g, '');
-
-        const duplicate = Object.values(users).find(u => {
-          if (u.username.toLowerCase() === oldUsername.toLowerCase()) return false;
-          const uLast = (u.lastName || '').toLowerCase().replace(/\s+/g, '');
-          const uInit = (u.firstInitial || '').toLowerCase().replace(/[^a-z]/g, '');
-          return uLast === normLast && uInit === normInit && u.section === newSection;
-        });
-
-        if (duplicate) {
-          status.style.color = "red";
-          status.innerText = `May umiiral nang ibang account para kay "${newLast}, ${newInit}" sa ${newSection}.`;
-          return;
-        }
-
-        const updatedUser = {
-          ...currentUser,
-          username: newUsername,
-          lastName: newLast,
-          firstInitial: newInit,
-          gender: newGender,
-          section: newSection,
-          pin: newPin
-        };
-
-        // Kung nagbago ang username, ilipat ang node at i-update ang posts
-        if (newUsername !== oldUsername) {
-          const updates = {};
-          updates['dagli_users/' + newUsername] = updatedUser;
-          updates['dagli_users/' + oldUsername] = null;
-
-          // I-update ang dating mga post na ginawa gamit ang lumang username
-          db.once('value', postSnap => {
-            const posts = postSnap.val() || {};
-            for (const postId in posts) {
-              if (posts[postId].username === oldUsername) {
-                updates['dagli_posts/' + postId + '/username'] = newUsername;
-                updates['dagli_posts/' + postId + '/lastName'] = newLast;
-                updates['dagli_posts/' + postId + '/firstInitial'] = newInit;
-                updates['dagli_posts/' + postId + '/section'] = newSection;
-                updates['dagli_posts/' + postId + '/gender'] = newGender;
-              }
-            }
-
-            firebase.database().ref().update(updates).then(() => {
-              currentUser = updatedUser;
-              localStorage.setItem('dagli_auth_session', JSON.stringify(currentUser));
-              updateAuthUI();
-              status.style.color = "green";
-              status.innerText = "Tagumpay na na-update ang iyong profile at username!";
-              setTimeout(() => { status.innerText = ''; }, 3500);
-            });
-          });
-        } else {
-          // Walang pagbabago sa username, i-update lang ang details
-          dbUsers.child(oldUsername).update({
-            lastName: newLast,
-            firstInitial: newInit,
-            gender: newGender,
-            section: newSection,
-            pin: newPin
-          }).then(() => {
-            // I-update din ang posts
-            db.once('value', postSnap => {
-              const posts = postSnap.val() || {};
-              const postUpdates = {};
-              for (const postId in posts) {
-                if (posts[postId].username === oldUsername) {
-                  postUpdates['dagli_posts/' + postId + '/lastName'] = newLast;
-                  postUpdates['dagli_posts/' + postId + '/firstInitial'] = newInit;
-                  postUpdates['dagli_posts/' + postId + '/section'] = newSection;
-                  postUpdates['dagli_posts/' + postId + '/gender'] = newGender;
-                }
-              }
-              if (Object.keys(postUpdates).length > 0) {
-                firebase.database().ref().update(postUpdates);
-              }
-            });
-
-            currentUser = updatedUser;
-            localStorage.setItem('dagli_auth_session', JSON.stringify(currentUser));
-            updateAuthUI();
-            status.style.color = "green";
-            status.innerText = "Tagumpay na na-update ang impormasyon!";
-            setTimeout(() => { status.innerText = ''; }, 3500);
-          });
-        }
-      });
-    }
 
     // 5. STUDENT CAN DELETE OWN ACCOUNT
     function deleteMyOwnAccount() {
@@ -1276,15 +1235,10 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
     }
 
     // 6. TAB SWITCHING
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      const activeEl = document.getElementById(tabId);
-      if (activeEl) activeEl.classList.add('active');
-      window.scrollTo(0, 0);
-    }
 
     // 7. REAL-TIME DATA LISTENER
     db.on("value", snapshot => {
+      boardReady = true;
       allPostsData = snapshot.val() || {};
       renderFeed();
       renderLeaderboard();
@@ -1294,211 +1248,30 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
     });
 
     dbUsers.on("value", snapshot => {
+      usersReady = true;
       allUsersData = snapshot.val() || {};
       if (currentUser && allUsersData[currentUser.username]) {
         currentUser = allUsersData[currentUser.username];
-        localStorage.setItem('dagli_auth_session', JSON.stringify(currentUser));
+        localStorage.setItem('dagli_auth_session', JSON.stringify({username:currentUser.username,createdAt:currentUser.createdAt}));
+        updateAuthUI();
+      } else if (currentUser) {
+        currentUser = null;
+        localStorage.removeItem('dagli_auth_session');
         updateAuthUI();
       }
+      renderStudentProfile();
       if (document.getElementById('adminPanel').style.display === 'block') {
         renderAdminUsersTable();
       }
     });
 
     // 8. RENDER POSTS FEED
-    function renderFeed() {
-      const containerHome = document.getElementById('postsListHome');
-      const containerAll = document.getElementById('postsListAll');
-      const keys = Object.keys(allPostsData).reverse();
-
-      if (keys.length === 0) {
-        const emptyMsg = '<div style="text-align:center; color:#555; padding: 15px;">Wala pang ibang nai-post na dagli. Maging una sa pagsusumite!</div>';
-        containerHome.innerHTML = emptyMsg;
-        containerAll.innerHTML = emptyMsg;
-        return;
-      }
-
-      let html = '';
-      keys.forEach(id => {
-        const p = allPostsData[id];
-        const comments = p.comments ? Object.values(p.comments) : [];
-        const commentCount = comments.length;
-
-        const rawContent = (p.content || '').trim();
-        const wordCount = rawContent ? rawContent.split(/\s+/).length : 0;
-        let bodyHtml = '';
-
-        if (wordCount > 30) {
-          const snippetText = getSnippet(rawContent, 30);
-          bodyHtml = `
-            <div id="snippet-${id}">
-              <div class="post-text">${formatLines(snippetText)}</div>
-              <span class="read-more-btn" onclick="toggleReadMore('${id}', true)">[👉 Basahin ang Kabuuan...]</span>
-            </div>
-            <div id="full-${id}" style="display:none;">
-              <div class="post-text">${formatLines(rawContent)}</div>
-              <span class="read-more-btn" onclick="toggleReadMore('${id}', false)">[▲ Itago / Show Less]</span>
-            </div>
-          `;
-        } else {
-          bodyHtml = `<div class="post-text">${formatLines(rawContent)}</div>`;
-        }
-
-        const authorReal = p.lastName && p.firstInitial 
-          ? `[${escapeHtml(p.lastName)}, ${escapeHtml(p.firstInitial)}]` 
-          : (p.realName ? `[${escapeHtml(p.realName)}]` : '');
-
-        const isUpvoted = currentUser && p.voters && p.voters[currentUser.username];
-        const isHearted = currentUser && p.hearters && p.hearters[currentUser.username];
-
-        const upBtnText = isUpvoted ? `▲ Na-Upvote (${p.upvotes || 0})` : `▲ Upvote (${p.upvotes || 0})`;
-        const heartBtnText = isHearted ? `❤️ Na-Pusuan (${p.hearts || 0})` : `❤️ Puso (${p.hearts || 0})`;
-        const upClass = isUpvoted ? 'action-btn voted' : 'action-btn';
-        const heartClass = isHearted ? 'action-btn hearted' : 'action-btn';
-
-        const isOwner = currentUser && (currentUser.username === p.username);
-        const ownDeleteHtml = isOwner 
-          ? `<span class="action-btn delete-btn" onclick="deleteMyOwnPost('${id}')">[Burahin ang Aking Post]</span>` 
-          : '';
-
-        let commentsListHtml = '';
-        comments.forEach(c => {
-          commentsListHtml += `
-            <div class="comment-item">
-              <span class="comment-user">${escapeHtml(c.author)}:</span> ${escapeHtml(c.text)}
-            </div>
-          `;
-        });
-
-        html += `
-          <div class="post-card" id="post-${id}">
-            <div class="post-header">
-              <span class="post-title">${escapeHtml(p.title)}</span> &nbsp;
-              <span class="post-user">${escapeHtml(p.username)}</span>
-              <span class="badge">${escapeHtml(p.section)}</span>
-              <span class="post-author-sub">Tunay: ${authorReal} &bull; No. ${id.slice(-5)} &bull; ${p.date}</span>
-            </div>
-            <div class="post-body">${bodyHtml}</div>
-            <div class="actions">
-              <span class="${upClass}" onclick="upvote('${id}')">${upBtnText}</span>
-              <span class="${heartClass}" onclick="heartReaction('${id}')">${heartBtnText}</span>
-              <span class="action-btn" onclick="toggleComments('${id}')">💬 Komento (<span id="c-count-${id}">${commentCount}</span>)</span>
-              ${ownDeleteHtml}
-            </div>
-            
-            <div class="comments-wrapper" id="comments-${id}">
-              <div id="comments-items-${id}">${commentsListHtml || '<div style="color:#888; font-size:8pt;">Wala pang komento.</div>'}</div>
-              <div class="comment-input-row">
-                <input type="text" id="c-text-${id}" placeholder="Mag-iwan ng komento..." maxlength="150">
-                <button class="btn" id="c-btn-${id}" onclick="submitComment('${id}')" style="width:auto; padding:4px 10px;">I-send</button>
-              </div>
-            </div>
-          </div>
-        `;
-      });
-
-      containerHome.innerHTML = html;
-      containerAll.innerHTML = html;
-    }
 
     // 9. SUBMIT POST
-    function submitDagli() {
-      if (!currentUser) {
-        alert("Paki-login muna ang iyong account bago mag-post.");
-        switchTab('tab-auth');
-        return;
-      }
-
-      const title = document.getElementById('postTitle').value.trim();
-      const content = document.getElementById('postContent').value.trim();
-      const status = document.getElementById('postStatusMsg');
-      const btn = document.getElementById('btnSubmitPost');
-
-      if (!title || !content) {
-        alert("Paki-puno ang Pamagat at ang iyong Kwento.");
-        return;
-      }
-
-      btn.disabled = true;
-      status.innerText = "Ipinapadala...";
-
-      const now = new Date();
-      const dateStr = now.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }) + 
-                      ' ' + now.toLocaleTimeString();
-
-      db.push({
-        username: currentUser.username,
-        lastName: currentUser.lastName,
-        firstInitial: currentUser.firstInitial,
-        gender: currentUser.gender,
-        section: currentUser.section,
-        title: title,
-        content: content,
-        upvotes: 0,
-        hearts: 0,
-        voters: {},
-        hearters: {},
-        timestamp: Date.now(),
-        date: dateStr
-      }).then(() => {
-        status.innerText = "Nai-post na!";
-        document.getElementById('postTitle').value = '';
-        document.getElementById('postContent').value = '';
-        btn.disabled = false;
-        setTimeout(() => { status.innerText = ''; }, 3000);
-      }).catch(err => {
-        alert("Error: " + err.message);
-        btn.disabled = false;
-        status.innerText = "";
-      });
-    }
 
     // 10. UPVOTES (5 MAX QUOTA)
-    function upvote(id) {
-      if (!currentUser) {
-        alert("⚠️ Kailangan mong mag-login muna sa iyong account upang makaboto!");
-        switchTab('tab-auth');
-        return;
-      }
-
-      const post = allPostsData[id];
-      if (!post) return;
-
-      if (post.voters && post.voters[currentUser.username]) {
-        alert("⚠️ Nakapag-upvote ka na sa dagling ito! (1 boto lamang bawat kwento).");
-        return;
-      }
-
-      const currentUsed = currentUser.upvotesUsed || 0;
-      if (currentUsed >= MAX_UPVOTES) {
-        alert("⚠️ Naubos mo na ang iyong 5 upvotes quota! Salamat sa iyong pagboto.");
-        return;
-      }
-
-      db.child(id).child('upvotes').transaction(cur => (cur || 0) + 1);
-      db.child(id).child('voters').child(currentUser.username).set(true);
-      dbUsers.child(currentUser.username).child('upvotesUsed').transaction(cur => (cur || 0) + 1);
-    }
 
     // 11. HEARTS (1 PER POST)
-    function heartReaction(id) {
-      if (!currentUser) {
-        alert("⚠️ Kailangan mong mag-login muna sa iyong account upang mag-react ng puso!");
-        switchTab('tab-auth');
-        return;
-      }
-
-      const post = allPostsData[id];
-      if (!post) return;
-
-      if (post.hearters && post.hearters[currentUser.username]) {
-        alert("⚠️ Naka-heart reaction ka na sa dagling ito!");
-        return;
-      }
-
-      db.child(id).child('hearts').transaction(cur => (cur || 0) + 1);
-      db.child(id).child('hearters').child(currentUser.username).set(true);
-    }
 
     // 12. COMMENTS
     function toggleComments(id) {
@@ -1508,40 +1281,8 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       }
     }
 
-    function submitComment(postId) {
-      if (!currentUser) {
-        alert("Paki-login muna ang iyong account bago mag-iwan ng komento.");
-        switchTab('tab-auth');
-        return;
-      }
-
-      const textInput = document.getElementById('c-text-' + postId);
-      const sendBtn = document.getElementById('c-btn-' + postId);
-      const text = textInput.value.trim();
-
-      if (!text) {
-        alert("Paki-type ang iyong komento.");
-        return;
-      }
-
-      sendBtn.disabled = true;
-
-      db.child(postId).child('comments').push({
-        author: `@${currentUser.username} (${currentUser.lastName})`,
-        text: text,
-        date: new Date().toLocaleTimeString()
-      }).then(() => {
-        textInput.value = '';
-        setTimeout(() => { sendBtn.disabled = false; }, 3000);
-      }).catch(() => { sendBtn.disabled = false; });
-    }
 
     // 13. DELETE OWN POST
-    function deleteMyOwnPost(id) {
-      if (confirm("Sigurado ka bang nais mong burahin ang sarili mong dagli?")) {
-        db.child(id).remove().then(() => alert("Tagumpay na nabura ang iyong dagli."));
-      }
-    }
 
     // 14. SAMPLE POST (LOCAL)
     function sampleUpvote(btn) {
@@ -1569,40 +1310,6 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
     }
 
     // 15. LEADERBOARD
-    function renderLeaderboard() {
-      const tbody = document.getElementById('leaderboardBody');
-      const postsArray = Object.keys(allPostsData).map(k => ({ id: k, ...allPostsData[k] }));
-
-      postsArray.sort((a, b) => {
-        const diff = (b.upvotes || 0) - (a.upvotes || 0);
-        return diff !== 0 ? diff : (b.hearts || 0) - (a.hearts || 0);
-      });
-
-      const top10 = postsArray.slice(0, 10);
-      if (top10.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:10px;">Wala pang datos.</td></tr>';
-        return;
-      }
-
-      let html = '';
-      top10.forEach((p, idx) => {
-        const rank = idx + 1;
-        const rankClass = rank === 1 ? 'rank-1' : (rank === 2 ? 'rank-2' : (rank === 3 ? 'rank-3' : ''));
-        const medal = rank === 1 ? '🥇' : (rank === 2 ? '🥈' : (rank === 3 ? '🥉' : `#${rank}`));
-
-        html += `
-          <tr class="${rankClass}">
-            <td style="text-align:center; font-weight:bold;">${medal}</td>
-            <td><strong>${escapeHtml(p.title)}</strong></td>
-            <td>${escapeHtml(p.username)}</td>
-            <td>${escapeHtml(p.section)}</td>
-            <td style="text-align:center; font-weight:bold; color:#0F0C5D;">${p.upvotes || 0}</td>
-            <td style="text-align:center; color:#C00;">${p.hearts || 0}</td>
-          </tr>
-        `;
-      });
-      tbody.innerHTML = html;
-    }
 
     // 16. ADMIN LOGIN & DASHBOARD
     function checkAdminLogin() {
@@ -1625,113 +1332,8 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       document.getElementById('adminPanel').style.display = 'none';
     }
 
-    function renderAdminDashboard() {
-      const posts = Object.keys(allPostsData).map(k => ({ id: k, ...allPostsData[k] }));
-      const userCount = Object.keys(allUsersData).length;
-
-      let maleCount = 0, femaleCount = 0, totalUp = 0;
-      const sectionStats = {
-        "10-ALMANZOR": { count: 0, male: 0, female: 0, upvotes: 0, students: [] },
-        "10-ECALNER":  { count: 0, male: 0, female: 0, upvotes: 0, students: [] },
-        "10-RESUENA":  { count: 0, male: 0, female: 0, upvotes: 0, students: [] },
-        "10-SEVILLA":  { count: 0, male: 0, female: 0, upvotes: 0, students: [] },
-        "10-OTCHARAN": { count: 0, male: 0, female: 0, upvotes: 0, students: [] }
-      };
-
-      posts.forEach(p => {
-        if (p.gender === 'Lalaki') maleCount++;
-        if (p.gender === 'Babae') femaleCount++;
-        totalUp += (p.upvotes || 0);
-
-        if (sectionStats[p.section]) {
-          sectionStats[p.section].count++;
-          if (p.gender === 'Lalaki') sectionStats[p.section].male++;
-          if (p.gender === 'Babae') sectionStats[p.section].female++;
-          sectionStats[p.section].upvotes += (p.upvotes || 0);
-
-          const studentDisplayName = p.lastName && p.firstInitial
-            ? `${p.lastName}, ${p.firstInitial}.`
-            : (p.realName || p.username || 'Walang Pangalan');
-
-          sectionStats[p.section].students.push({
-            name: studentDisplayName,
-            gender: p.gender || 'N/A',
-            title: p.title || 'Walang Pamagat',
-            username: p.username || ''
-          });
-        }
-      });
-
-      document.getElementById('st-total').innerText = posts.length;
-      document.getElementById('st-users').innerText = userCount;
-      document.getElementById('st-male').innerText = maleCount;
-      document.getElementById('st-female').innerText = femaleCount;
-      document.getElementById('st-upvotes').innerText = totalUp;
-
-      let secHtml = '';
-      for (const [secName, data] of Object.entries(sectionStats)) {
-        data.students.sort((a, b) => a.name.localeCompare(b.name));
-
-        const namesListHtml = data.students.length === 0 
-          ? '<span style="color:#888; font-style:italic;">Wala pang nakapag-pasa</span>'
-          : `
-            <details class="roster-drawer">
-              <summary>👉 Tingnan ang Listahan (${data.students.length} mag-aaral)</summary>
-              <div class="roster-list-box">
-                <ol>
-                  ${data.students.map(s => `
-                    <li>
-                      <strong>${escapeHtml(s.name)}</strong> 
-                      <span style="color:#666;">(${escapeHtml(s.gender)})</span> 
-                      &bull; <em>"${escapeHtml(s.title)}"</em>
-                    </li>
-                  `).join('')}
-                </ol>
-              </div>
-            </details>
-          `;
-
-        secHtml += `
-          <tr>
-            <td><strong>${secName}</strong></td>
-            <td style="text-align:center;">${data.count}</td>
-            <td style="text-align:center;">${data.male}</td>
-            <td style="text-align:center;">${data.female}</td>
-            <td style="text-align:center; font-weight:bold;">${data.upvotes}</td>
-            <td>${namesListHtml}</td>
-          </tr>
-        `;
-      }
-      document.getElementById('sectionSummaryBody').innerHTML = secHtml;
-
-      renderAdminTable();
-    }
 
     // 17. MASTER DIRECTORY NG MGA ACCOUNT (MAY AYUSIN AT BURAHIN)
-    function renderAdminUsersTable() {
-      const users = Object.keys(allUsersData).map(k => ({ id: k, ...allUsersData[k] }));
-      users.sort((a, b) => (a.lastName || '').localeCompare(b.lastName || ''));
-
-      let html = '';
-      users.forEach(u => {
-        html += `
-          <tr>
-            <td><strong>@${escapeHtml(u.username)}</strong></td>
-            <td>${escapeHtml(u.lastName)}, ${escapeHtml(u.firstInitial)}.</td>
-            <td>${escapeHtml(u.section)}</td>
-            <td style="text-align:center; font-weight:bold; color:#A00;">${escapeHtml(u.pin)}</td>
-            <td style="text-align:center;">${u.upvotesUsed || 0} / 5</td>
-            <td style="text-align:center; white-space:nowrap;">
-              <button class="btn" style="padding:2px 6px; font-size:7.5pt;" onclick="adminEditStudentDetails('${u.username}')">✏️ Ayusin</button>
-              <button class="btn" style="padding:2px 6px; font-size:7.5pt;" onclick="adminResetPin('${u.username}')">🔑 PIN</button>
-              <button class="btn btn-danger" style="padding:2px 6px; font-size:7.5pt;" onclick="adminDeleteUser('${u.username}')">🗑️ Burahin</button>
-            </td>
-          </tr>
-        `;
-      });
-
-      document.getElementById('adminUsersTableBody').innerHTML = html || '<tr><td colspan="6" style="text-align:center;">Wala pang rehistradong mag-aaral.</td></tr>';
-    }
 
     function adminEditStudentDetails(username) {
       const u = allUsersData[username];
@@ -1779,73 +1381,355 @@ Hindi ko pa pala nakukuha sa counter ang binili kong ensaymada.</div>
       }
     }
 
-    function renderAdminTable() {
-      const sortType = document.getElementById('adminSortSelect').value;
-      const posts = Object.keys(allPostsData).map(k => ({ id: k, ...allPostsData[k] }));
-
-      posts.sort((a, b) => {
-        if (sortType === 'upvotes') return (b.upvotes || 0) - (a.upvotes || 0);
-        if (sortType === 'lastName') return (a.lastName || '').localeCompare(b.lastName || '');
-        if (sortType === 'gender') return (a.gender || '').localeCompare(b.gender || '');
-        if (sortType === 'section') return (a.section || '').localeCompare(b.section || '');
-        if (sortType === 'date') return (b.timestamp || 0) - (a.timestamp || 0);
-        return 0;
-      });
-
-      let tbodyHtml = '';
-      posts.forEach(p => {
-        const author = p.lastName && p.firstInitial ? `${p.lastName}, ${p.firstInitial}` : (p.username || 'N/A');
-        tbodyHtml += `
-          <tr>
-            <td style="text-align:center;"><input type="checkbox" class="post-check" value="${p.id}"></td>
-            <td><strong>${escapeHtml(author)}</strong> <span style="font-size:8pt; color:#666;">(@${escapeHtml(p.username)})</span></td>
-            <td>${escapeHtml(p.gender || 'N/A')}</td>
-            <td>${escapeHtml(p.section)}</td>
-            <td>${escapeHtml(p.title)}</td>
-            <td style="text-align:center; font-weight:bold;">${p.upvotes || 0}</td>
-            <td style="text-align:center;">${p.hearts || 0}</td>
-            <td style="text-align:center;">
-              <button class="btn btn-danger" style="padding:2px 8px; font-size:8pt;" onclick="deleteDirect('${p.id}')">Burahin</button>
-            </td>
-          </tr>
-        `;
-      });
-      document.getElementById('adminTableBody').innerHTML = tbodyHtml || '<tr><td colspan="8" style="text-align:center;">Walang nakitang post.</td></tr>';
-    }
 
     // 18. BATCH DELETE
     function toggleSelectAll(master) {
       document.querySelectorAll('.post-check').forEach(cb => cb.checked = master.checked);
     }
 
-    function batchDeleteSelected() {
-      const selectedBoxes = document.querySelectorAll('.post-check:checked');
-      if (selectedBoxes.length === 0) {
-        alert("Pumili muna ng kahit isang dagli na lalagyan ng tsek bago burahin.");
-        return;
-      }
 
-      if (!confirm(`Sigurado ka bang nais mong burahin ang ${selectedBoxes.length} na napiling dagli? Hindi na ito mababawi.`)) {
-        return;
-      }
 
-      const updates = {};
-      selectedBoxes.forEach(cb => { updates[cb.value] = null; });
+const BOARD_SECTIONS = ['10-ALMANZOR', '10-ECALNER', '10-RESUENA', '10-SEVILLA', '10-OTCHARAN'];
+const BOX_COLORS = ['rose', 'blue', 'green', 'purple', 'gold', 'gray'];
+let feedSort = 'hot';
+let feedSection = '';
+let feedSearch = '';
+let boardReady = false;
+let usersReady = false;
+let votePending = false;
+let previousBoardRoute = '#/home';
+let lastBoardRoute = '#/home';
+const heartPending = new Set();
+const commentPending = new Set();
+const cardState = new Map();
 
-      db.update(updates).then(() => {
-        alert("Tagumpay na nabura ang mga napiling dagli!");
-        document.getElementById('selectAllBox').checked = false;
-      }).catch(err => alert("Error: " + err.message));
+function escapeHtml(value) {
+  return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+function number(value) { return Number.isFinite(Number(value)) ? Math.max(0, Number(value)) : 0; }
+function isStory(post) { return post && !post.deleted && post.kind !== 'announcement'; }
+function publicPosts() { return Object.entries(allPostsData).filter(([, p]) => p && !p.deleted).map(([id, p]) => ({...p, id})); }
+function studentLink(username, label) { return `<a class="student-link" href="#/student/${encodeURIComponent(username || '')}">${escapeHtml(label || '@' + username)}</a>`; }
+function storyLink(id, title) { return `<a href="#/dagli/${encodeURIComponent(id)}">${escapeHtml(title || 'Walang pamagat')}</a>`; }
+function voterNames(post) { return Object.keys(post.voters || {}).filter(name => !!post.voters[name]); }
+function commentOwner(comment) {
+  if (comment.authorUsername) return comment.authorUsername;
+  const match = String(comment.author || '').match(/^@([a-z0-9_]+)/i);
+  return match ? match[1].toLowerCase() : '';
+}
+function studentVotes(username, users = allUsersData, posts = allPostsData) {
+  const result = new Map();
+  const user = users[username] || {};
+  Object.entries(user.voteHistory || {}).forEach(([section, vote]) => {
+    if (vote && vote.postId) result.set(vote.postId, {...vote, section, id: vote.postId});
+  });
+  Object.entries(posts || {}).forEach(([id, post]) => {
+    if (!post || !post.voters || !post.voters[username]) return;
+    const marker = post.voters[username];
+    result.set(id, {...(result.get(id) || {}), id, postId:id, section:(marker && marker.section) || (result.get(id) || {}).section || post.section, title:post.title, author:post.username, deleted:!!post.deleted});
+  });
+  return [...result.values()];
+}
+function participation(username) {
+  const posts = publicPosts().filter(p => isStory(p) && p.username === username);
+  const comments = [];
+  publicPosts().forEach(post => Object.entries(post.comments || {}).forEach(([id, c]) => {
+    if (commentOwner(c) === username) comments.push({...c, id, postId:post.id, postTitle:post.title, postAuthor:post.username, countsForParticipation:isStory(post)});
+  }));
+  return {posts, comments, commentCount:comments.filter(c=>c.countsForParticipation).length, votes:studentVotes(username)};
+}
+function voteUsage(username, users = allUsersData, posts = allPostsData) {
+  const votes = studentVotes(username, users, posts);
+  return {votes, used:Math.max(number((users[username] || {}).upvotesUsed), votes.length), sections:new Set(votes.map(v => v.section))};
+}
+function notify(message, error = false) {
+  const box = document.getElementById('boardNotice');
+  box.textContent = message;
+  box.className = error ? 'board-notice error' : 'board-notice';
+  box.hidden = false;
+}
+function updateParticipationReminder() {
+  const box = document.getElementById('participationReminder');
+  if (!currentUser) { box.hidden = true; return; }
+  box.hidden = false;
+  const usage = voteUsage(currentUser.username);
+  const remaining = Math.max(0, MAX_UPVOTES - usage.used);
+  const missing = BOARD_SECTIONS.filter(section => !usage.sections.has(section));
+  const progress = participation(currentUser.username);
+  const message = remaining && missing.length ? `May ${Math.min(remaining, missing.length)} boto ka pa. Hindi pa nabobotohan: ${missing.map(s => s.replace('10-', '')).join(', ')}.` : 'Nagamit mo na ang iyong mga boto. Salamat sa pagbasa!';
+  box.innerHTML = `<strong>Ang participation mo</strong><p>${escapeHtml(message)}</p><div class="section-votes">${BOARD_SECTIONS.map(s => `<span class="section-vote ${usage.sections.has(s) ? 'done' : ''}">${usage.sections.has(s) ? '✓' : '○'} ${escapeHtml(s.replace('10-', ''))}</span>`).join('')}</div><p><a href="#/student/${encodeURIComponent(currentUser.username)}">Comments: <strong>${progress.commentCount}/3</strong> ${progress.commentCount >= 3 ? '✓ Kumpleto' : '· Mag-iwan ng komento sa mga dagli'}</a></p>`;
+  document.getElementById('quotaDisplay').textContent = `▲ Boto: ${remaining}/${MAX_UPVOTES}`;
+}
+function updateAuthUI() {
+  const editingProfile = document.activeElement && document.activeElement.closest('#authProfileContainer');
+  const saved = {};
+  if (editingProfile) document.querySelectorAll('#authProfileContainer input, #authProfileContainer select').forEach(el => saved[el.id] = el.value);
+  legacyUpdateAuthUI();
+  if(currentUser){document.getElementById('navUserGreeting').innerHTML=studentLink(currentUser.username)+' '+escapeHtml(currentUser.section || '');document.getElementById('navAuthLink').textContent='⚙️ Account';}
+  if (editingProfile) Object.entries(saved).forEach(([id, value]) => document.getElementById(id).value = value);
+  updateParticipationReminder();
+}
+function rememberCards() {
+  document.querySelectorAll('.post-card[data-card-key]').forEach(card => {
+    const body = card.querySelector('.story-expand');
+    const comments = card.querySelector('.comments-expand');
+    const voters = card.querySelector('.voters-expand');
+    const input = card.querySelector('textarea[name="comment"]');
+    cardState.set(card.dataset.cardKey, {body:body && body.open, comments:comments && comments.open, voters:voters && voters.open, draft:input ? input.value : ''});
+  });
+}
+function renderPostCard(post, view, full = false) {
+  const id = post.id;
+  const key = view + ':' + id;
+  const state = cardState.get(key) || {};
+  const color = BOX_COLORS.includes(post.boxColor) ? post.boxColor : 'rose';
+  const content = String(post.content || '');
+  const words = content.trim() ? content.trim().split(/\s+/).length : 0;
+  const announcement = post.kind === 'announcement';
+  const own = currentUser && post.username === currentUser.username;
+  const voted = currentUser && !!(post.voters || {})[currentUser.username];
+  const usage = currentUser ? voteUsage(currentUser.username) : null;
+  const unavailable = !!(currentUser && (own || voted || usage.used >= MAX_UPVOTES || usage.sections.has(post.section)));
+  const voteLabel = voted ? '✓ Na-upvote' : own ? 'Sarili mong dagli' : unavailable ? 'Nagamit na ang boto' : '▲ Upvote';
+  const comments = Object.entries(post.comments || {});
+  const names = voterNames(post);
+  const stamp = Number(post.timestamp);
+  const date = Number.isFinite(stamp) && stamp > 0 ? new Date(stamp).toLocaleString('fil-PH', {timeZone:'Asia/Manila',dateStyle:'medium',timeStyle:'short'}) : (post.date || '');
+  const body = full || words <= 30 ? `<div class="post-text">${formatLines(content)}</div>` : `<details class="story-expand" ${state.body ? 'open' : ''}><summary>Basahin ang kabuuan · ${words} salita</summary><div class="post-text story-full">${formatLines(content)}</div></details><div class="post-text story-snippet">${formatLines(getSnippet(content, 30))}</div>`;
+  return `<article class="post-card box-${color}" data-card-key="${escapeHtml(key)}" data-post-id="${escapeHtml(id)}">
+    <header class="post-heading"><h2 class="post-title">${full ? escapeHtml(post.title) : storyLink(id, post.title)}</h2><div class="post-user">${studentLink(post.username)}</div></header>
+    <div class="post-meta"><span class="badge">${announcement ? '📢 Anunsyo' : 'Dagli'}</span> <span>${escapeHtml(post.section)}</span> · <time>${escapeHtml(date)}</time></div>
+    <div class="post-body">${body}</div>
+    <div class="actions">${announcement ? '' : `<button type="button" class="action-btn ${voted ? 'voted' : ''}" data-action="vote" data-id="${escapeHtml(id)}" aria-pressed="${!!voted}" ${unavailable || votePending ? 'disabled' : ''}>${voteLabel} (${number(post.upvotes)})</button>`}<button type="button" class="action-btn ${(currentUser && (post.hearters || {})[currentUser.username]) ? 'hearted' : ''}" data-action="heart" data-id="${escapeHtml(id)}" ${heartPending.has(id) ? 'disabled' : ''}>♥ Puso (${number(post.hearts)})</button><a class="action-btn" href="#/dagli/${encodeURIComponent(id)}">Buksan / I-share</a>${own ? `<button type="button" class="action-btn delete-btn" data-action="delete-own" data-id="${escapeHtml(id)}">Burahin</button>` : ''}</div>
+    ${announcement ? '' : `<details class="voters-expand" ${state.voters ? 'open' : ''}><summary>Sino ang nag-upvote? (${names.length})</summary><div class="voter-list">${names.length ? names.map(n => studentLink(n)).join(' · ') : 'Wala pang bumoboto.'}</div></details>`}
+    <details class="comments-expand" ${full || state.comments ? 'open' : ''}><summary>💬 Komento (${comments.length})</summary><div class="comment-list">${comments.length ? comments.map(([cid,c]) => `<div class="comment-item" id="comment-${escapeHtml(view)}-${escapeHtml(cid)}"><strong>${commentOwner(c) ? studentLink(commentOwner(c)) : escapeHtml(c.author || 'Mambabasa')}</strong><p>${escapeHtml(c.text)}</p></div>`).join('') : '<p class="muted">Wala pang komento. Simulan ang usapan.</p>'}</div><form class="comment-form" data-post-id="${escapeHtml(id)}"><label>Komento<textarea name="comment" maxlength="1000" placeholder="Ano ang masasabi mo sa kuwento?" ${commentPending.has(id) ? 'disabled' : ''}>${escapeHtml(state.draft || '')}</textarea></label><button class="btn" type="submit" ${commentPending.has(id) ? 'disabled' : ''}>${commentPending.has(id) ? 'Ipinapadala…' : 'I-send'}</button><span class="comment-status" role="status"></span></form></details>
+  </article>`;
+}
+function hotScore(post) {
+  const age = Math.max(0, (Date.now() - number(post.timestamp)) / 3600000);
+  return (number(post.upvotes) * 3 + number(post.hearts) + Object.keys(post.comments || {}).length + 1) / Math.pow(age + 2, 1.25);
+}
+function renderFeed() {
+  if (!document.getElementById('feedSort')) return;
+  const active = document.activeElement;
+  const activeCard = active && active.closest('.post-card[data-card-key]');
+  const focused = activeCard && active.matches('textarea[name="comment"]') ? {key:activeCard.dataset.cardKey,start:active.selectionStart,end:active.selectionEnd} : null;
+  rememberCards();
+  const all = publicPosts();
+  const filtered = all.filter(p => (!feedSection || p.section === feedSection) && (!feedSearch || `${p.title} ${p.content} ${p.username}`.toLocaleLowerCase().includes(feedSearch)));
+  const stories = filtered.filter(isStory).sort((a,b) => feedSort === 'new' ? number(b.timestamp)-number(a.timestamp) : feedSort === 'top' ? number(b.upvotes)-number(a.upvotes) || number(b.timestamp)-number(a.timestamp) : hotScore(b)-hotScore(a));
+  const empty = `<p class="empty-state">${boardReady ? 'Walang dagli na tumugma. Subukan ang ibang section o hanap.' : 'Kinukuha ang mga dagli…'}</p>`;
+  document.getElementById('postsListHome').innerHTML = stories.map(p => renderPostCard(p,'home')).join('') || empty;
+  document.getElementById('postsListAll').innerHTML = filtered.sort((a,b) => feedSort === 'new' ? number(b.timestamp)-number(a.timestamp) : feedSort === 'top' ? number(b.upvotes)-number(a.upvotes) || number(b.timestamp)-number(a.timestamp) : hotScore(b)-hotScore(a)).map(p => renderPostCard(p,'all')).join('') || empty;
+  const announcements = filtered.filter(p => p.kind === 'announcement').sort((a,b) => number(b.timestamp)-number(a.timestamp));
+  document.getElementById('announcementsList').innerHTML = announcements.length ? `<details class="announcements-drawer"><summary>📢 Mga anunsyo (${announcements.length})</summary>${announcements.map(p => `<p>${storyLink(p.id,p.title)} · ${studentLink(p.username)}</p>`).join('')}</details>` : '';
+  const sample = document.getElementById('samplePostCard');
+  if (sample) document.getElementById('postsListHome').parentElement.appendChild(sample);
+  updateParticipationReminder();
+  renderStudentProfile();
+  renderThread();
+  if (focused) document.querySelectorAll('.post-card[data-card-key]').forEach(card => {if(card.dataset.cardKey===focused.key){const input=card.querySelector('textarea[name="comment"]');if(input && !input.disabled){input.focus({preventScroll:true});input.setSelectionRange(focused.start,focused.end);}}});
+}
+function renderThread() {
+  const route = getRoute();
+  if (route.page !== 'dagli') return;
+  const post = allPostsData[route.id];
+  document.getElementById('threadContent').innerHTML = post && !post.deleted ? renderPostCard({...post,id:route.id},'thread',true) : `<p class="empty-state">${boardReady ? 'Hindi makita ang post. Maaaring nabura na ito.' : 'Kinukuha ang post…'}</p>`;
+}
+function renderStudentProfile() {
+  const route = getRoute();
+  if (route.page !== 'student') return;
+  const username = route.id;
+  const user = allUsersData[username];
+  const info = participation(username);
+  const announcements = publicPosts().filter(p => p.kind === 'announcement' && p.username === username);
+  const content = document.getElementById('studentProfileContent');
+  if (!user && !info.posts.length && !info.comments.length && !info.votes.length && !announcements.length) { content.innerHTML = `<p class="empty-state">${usersReady && boardReady ? 'Hindi makita ang student na ito.' : 'Kinukuha ang profile…'}</p>`; return; }
+  content.innerHTML = `<header class="profile-header"><h1>@${escapeHtml(username)}</h1><p>${escapeHtml((user || {}).section || (info.posts[0] || {}).section || '')}</p><div class="profile-stats"><span><b>${info.posts.length}</b> dagli</span><span><b>${info.votes.length}</b> ibinigay na boto</span><span><b>${info.commentCount}/3</b> comments ${info.commentCount >= 3 ? '✓' : ''}</span></div><progress max="3" value="${Math.min(3,info.commentCount)}" aria-label="Comments participation"></progress><p>${info.commentCount >= 3 ? 'Kumpleto ang minimum na 3 comments sa mga dagli.' : `Kulang pa ng ${3-info.commentCount} comment para sa minimum participation.`}</p><nav class="profile-jumps"><a href="#student-posts">Mga post</a><a href="#student-votes">Mga binoto</a><a href="#student-comments">Mga komento</a></nav></header>
+    <section id="student-posts"><h2>Mga pinost (${info.posts.length + announcements.length})</h2><div class="posts-wrapper">${[...info.posts,...announcements].sort((a,b) => number(b.timestamp)-number(a.timestamp)).map(p => renderPostCard(p,'student')).join('') || '<p class="empty-state">Wala pang post.</p>'}</div></section>
+    <section id="student-votes"><h2>Mga inupvote (${info.votes.length})</h2><ul class="activity-list">${info.votes.map(v => `<li>${v.deleted || !allPostsData[v.id] ? escapeHtml(v.title || 'Naburang dagli') + ' (nabura)' : storyLink(v.id,v.title)} · ${studentLink(v.author || (allPostsData[v.id] || {}).username || '')} · ${escapeHtml(v.section || '')}</li>`).join('') || '<li>Wala pang inupvote.</li>'}</ul></section>
+    <section id="student-comments"><h2>Mga komento (${info.comments.length})</h2><div class="activity-list">${info.comments.sort((a,b) => number(b.timestamp)-number(a.timestamp)).map(c => `<article class="activity-comment"><p>${escapeHtml(c.text)}</p><small>Sa ${storyLink(c.postId,c.postTitle)} ni ${studentLink(c.postAuthor)}</small></article>`).join('') || '<p>Wala pang komento sa dagli.</p>'}</div></section>`;
+}
+function getRoute() {
+  const match = location.hash.match(/^#\/(home|all|top|account|admin|dagli|student)(?:\/([^?]*))?/);
+  if (!match) return {page:'home',id:''};
+  let id='';try { id=decodeURIComponent(match[2] || ''); } catch(e) {}
+  return {page:match[1],id};
+}
+function showRoute() {
+  const route = getRoute();
+  if (['dagli','student'].includes(route.page) && !/^#\/(dagli|student)\//.test(lastBoardRoute)) previousBoardRoute=lastBoardRoute;
+  lastBoardRoute=location.hash.startsWith('#/') ? location.hash : '#/home';
+  document.querySelectorAll('.back-link').forEach(link=>link.setAttribute('href',previousBoardRoute));
+  const mapping = {home:'tab-home',all:'tab-posts',top:'tab-leaderboard',account:'tab-auth',admin:'tab-admin',dagli:'tab-thread',student:'tab-student'};
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.toggle('active',el.id === mapping[route.page]));
+  document.querySelectorAll('.nav-links a').forEach(a => a.setAttribute('aria-current',a.getAttribute('href') === '#/'+route.page ? 'page' : 'false'));
+  renderThread();renderStudentProfile();document.getElementById('feedControls').hidden=!['home','all'].includes(route.page);window.scrollTo(0,0);
+}
+function switchTab(tabId) {
+  const mapping = {'tab-home':'home','tab-posts':'all','tab-leaderboard':'top','tab-auth':'account','tab-admin':'admin'};
+  const hash = '#/' + (mapping[tabId] || 'home');
+  if (location.hash === hash) showRoute(); else location.hash=hash;
+}
+async function runTransaction(reference, update) {
+  await reference.once('value');
+  return new Promise((resolve,reject) => reference.transaction(update,(error,committed,snapshot) => error ? reject(error) : resolve({committed,snapshot}),false));
+}
+async function upvote(id) {
+  if (!currentUser) { notify('Mag-login muna para makaboto.');switchTab('tab-auth');return; }
+  if (votePending) return;
+  const username=currentUser.username;
+  votePending=true;renderFeed();
+  let reason='Hindi na-save ang boto. Pakisubukan muli.';
+  try {
+    const result=await runTransaction(firebase.database().ref(),root => {
+      if (!root) { reason='Hindi pa makuha ang board. Subukang muli.';return; }
+      const posts=root.dagli_posts || {}, users=root.dagli_users || {}, post=posts[id], user=users[username];
+      if (!user || !post || post.deleted) { reason='Hindi na available ang account o post.';return; }
+      if (!isStory(post)) { reason='Para sa mga dagli lang ang boto.';return; }
+      if (post.username === username) { reason='Bawal mag-upvote ng sariling dagli.';return; }
+      if (!BOARD_SECTIONS.includes(post.section)) { reason='Hindi kasama sa voting ang section na ito.';return; }
+      const usage=voteUsage(username,users,posts);
+      if ((post.voters || {})[username]) { reason='Naboto mo na ang dagling ito.';return; }
+      if (usage.sections.has(post.section)) { reason='May naiboto ka na sa section na ito. Isang boto lamang bawat section.';return; }
+      if (usage.used >= MAX_UPVOTES) { reason='Nagamit mo na ang limang boto mo.';return; }
+      user.voteHistory=user.voteHistory || {};
+      usage.votes.forEach(v => { if (BOARD_SECTIONS.includes(v.section) && !user.voteHistory[v.section]) user.voteHistory[v.section]={postId:v.id,title:v.title || '',author:v.author || '',votedAt:number(v.votedAt)}; });
+      user.voteHistory[post.section]={postId:id,title:post.title || '',author:post.username || '',votedAt:Date.now()};
+      user.upvotesUsed=usage.used+1;
+      post.voters=post.voters || {};post.voters[username]={section:post.section,votedAt:Date.now()};
+      post.upvotes=number(post.upvotes)+1;
+      return root;
+    });
+    if (!result.committed) notify(reason,true); else { const root=result.snapshot.val();allPostsData=root.dagli_posts || {};allUsersData=root.dagli_users || {};currentUser=allUsersData[username] || null;notify('Nai-save ang boto mo. Makikita na ng iba na ikaw ang bumoto.');updateAuthUI();renderLeaderboard(); }
+  } catch(error) { notify('Hindi na-save ang boto. Pakisubukan muli; kung tuloy-tuloy ang error, ipaalam kay Teacher.',true); }
+  finally { votePending=false;renderFeed();if (document.getElementById('adminPanel').style.display === 'block') renderAdminDashboard(); }
+}
+async function heartReaction(id) {
+  if (!currentUser) { switchTab('tab-auth');notify('Mag-login muna para mag-react.');return; }
+  if (heartPending.has(id)) return;
+  const username=currentUser.username;heartPending.add(id);renderFeed();
+  try { const result=await runTransaction(db.child(id),post => { if (!post || post.deleted || (post.hearters || {})[username]) return;post.hearters=post.hearters || {};post.hearters[username]=true;post.hearts=number(post.hearts)+1;return post; });if(result.committed) allPostsData[id]=result.snapshot.val();else notify('Nakapagbigay ka na ng puso, o hindi na available ang post.'); }
+  catch(e) { notify('Hindi na-save ang puso. Subukan muli.',true); }
+  finally { heartPending.delete(id);renderFeed(); }
+}
+async function submitComment(postId, form) {
+  if (!currentUser) { switchTab('tab-auth');notify('Mag-login muna para magkomento.');return; }
+  if (!form || commentPending.has(postId)) return;
+  const input=form.querySelector('textarea[name="comment"]'), text=input.value.trim();
+  if (!text || text.length>1000) { form.querySelector('.comment-status').textContent='Sumulat ng comment na 1–1,000 characters.';return; }
+  const post=allPostsData[postId];
+  if (!post || post.deleted) { notify('Hindi na available ang post.',true);return; }
+  const username=currentUser.username;commentPending.add(postId);renderFeed();
+  try { await db.child(postId).child('comments').push({author:'@'+username,authorUsername:username,text,timestamp:firebase.database.ServerValue.TIMESTAMP,date:new Date().toLocaleTimeString()});document.querySelectorAll('.comment-form').forEach(el => {if(el.dataset.postId === postId) el.querySelector('textarea').value='';});notify('Naipadala ang komento mo.'); }
+  catch(e) { notify('Hindi naipadala ang comment. Nananatili ang draft mo; subukan muli.',true); }
+  finally { commentPending.delete(postId);renderFeed();if(document.getElementById('adminPanel').style.display === 'block') renderAdminUsersTable(); }
+}
+async function submitDagli() {
+  if (!currentUser) { switchTab('tab-auth');return; }
+  const title=document.getElementById('postTitle').value.trim(),content=document.getElementById('postContent').value.trim();
+  const kind=document.getElementById('postKind').value === 'announcement' ? 'announcement' : 'story';
+  const boxColor=document.getElementById('postColor').value;
+  const status=document.getElementById('postStatusMsg'),button=document.getElementById('btnSubmitPost');
+  if (!title || !content || title.length>80 || content.length>10000) { status.textContent='Kailangan ang pamagat (hanggang 80 characters) at nilalaman (hanggang 10,000).';return; }
+  button.disabled=true;status.textContent='Ipinapadala…';
+  try { await db.push({username:currentUser.username,lastName:currentUser.lastName || '',firstInitial:currentUser.firstInitial || '',gender:currentUser.gender || '',section:currentUser.section,title,content,kind,boxColor:BOX_COLORS.includes(boxColor)?boxColor:'rose',upvotes:0,hearts:0,timestamp:firebase.database.ServerValue.TIMESTAMP});document.getElementById('postTitle').value='';document.getElementById('postContent').value='';status.textContent=kind === 'announcement' ? 'Nai-post ang anunsyo!' : 'Nai-post ang dagli!'; }
+  catch(e) { status.textContent='Hindi naipadala. Nananatili ang draft mo; pakisubukan muli.'; }
+  finally { button.disabled=false; }
+}
+function renderLeaderboard() {
+  const posts=publicPosts().filter(isStory).sort((a,b) => number(b.upvotes)-number(a.upvotes) || number(b.hearts)-number(a.hearts) || number(a.timestamp)-number(b.timestamp)).slice(0,10);
+  document.getElementById('leaderboardBody').innerHTML=posts.map((p,i) => `<tr class="rank-${i+1}"><td>${i+1}</td><td>${storyLink(p.id,p.title)}</td><td>${studentLink(p.username)}</td><td>${escapeHtml(p.section)}</td><td>${number(p.upvotes)}</td><td>${number(p.hearts)}</td></tr>`).join('') || '<tr><td colspan="6">Wala pang dagli.</td></tr>';
+}
+function renderAdminUsersTable() {
+  const users=Object.entries(allUsersData).sort(([,a],[,b]) => String(a.lastName || '').localeCompare(String(b.lastName || '')));
+  document.getElementById('adminUsersTableBody').innerHTML=users.map(([username,u]) => { const p=participation(username),usage=voteUsage(username);return `<tr><td>${studentLink(username)}</td><td>${studentLink(username,`${u.lastName || ''}, ${u.firstInitial || ''}`)}</td><td>${escapeHtml(u.section)}</td><td><a href="#/student/${encodeURIComponent(username)}">${usage.used}/5 boto</a></td><td><a href="#/student/${encodeURIComponent(username)}">${p.commentCount}/3 ${p.commentCount>=3?'✓ Kumpleto':'· Kulang'}</a></td><td>${p.posts.length} dagli</td><td><button class="btn" data-action="admin-edit" data-username="${escapeHtml(username)}">Ayusin</button> <button class="btn" data-action="admin-pin" data-username="${escapeHtml(username)}">Reset PIN</button> <button class="btn btn-danger" data-action="admin-delete" data-username="${escapeHtml(username)}">Burahin</button></td></tr>`;}).join('') || '<tr><td colspan="7">Wala pang account.</td></tr>';
+}
+function renderAdminDashboard() {
+  const posts=publicPosts().filter(isStory);
+  const submitted=new Set(posts.map(p => p.username));
+  document.getElementById('st-total').textContent=posts.length;
+  document.getElementById('st-users').textContent=Object.keys(allUsersData).length;
+  document.getElementById('st-male').textContent=[...submitted].filter(u => ((allUsersData[u] || posts.find(p=>p.username===u) || {}).gender)==='Lalaki').length;
+  document.getElementById('st-female').textContent=[...submitted].filter(u => ((allUsersData[u] || posts.find(p=>p.username===u) || {}).gender)==='Babae').length;
+  document.getElementById('st-upvotes').textContent=posts.reduce((n,p)=>n+number(p.upvotes),0);
+  document.getElementById('sectionSummaryBody').innerHTML=BOARD_SECTIONS.map(section => { const group=posts.filter(p=>p.section===section),names=[...new Set(group.map(p=>p.username))];return `<tr><td>${escapeHtml(section)}</td><td>${names.length}</td><td>${names.filter(n=>(allUsersData[n] || group.find(p=>p.username===n)).gender==='Lalaki').length}</td><td>${names.filter(n=>(allUsersData[n] || group.find(p=>p.username===n)).gender==='Babae').length}</td><td>${group.reduce((n,p)=>n+number(p.upvotes),0)}</td><td><details><summary>${names.length} mag-aaral · ${group.length} dagli</summary>${names.sort().map(n=>studentLink(n)).join('<br>')}</details></td></tr>`;}).join('');
+  renderAdminTable();renderAdminUsersTable();
+}
+function renderAdminTable() {
+  const sort=document.getElementById('adminSortSelect').value;
+  const posts=publicPosts().sort((a,b) => sort==='upvotes'?number(b.upvotes)-number(a.upvotes):sort==='date'?number(b.timestamp)-number(a.timestamp):String(a[sort] || '').localeCompare(String(b[sort] || '')));
+  document.getElementById('adminTableBody').innerHTML=posts.map(p=>`<tr><td><input type="checkbox" class="post-check" value="${escapeHtml(p.id)}" aria-label="Piliin ${escapeHtml(p.title)}"></td><td>${studentLink(p.username,(p.lastName || p.username)+', '+(p.firstInitial || ''))}</td><td>${escapeHtml(p.gender || '')}</td><td>${escapeHtml(p.section)}</td><td>${storyLink(p.id,p.title)} ${p.kind==='announcement'?'<small>📢 Anunsyo</small>':''}</td><td>${number(p.upvotes)}</td><td>${number(p.hearts)}</td><td><button class="btn btn-danger" data-action="admin-delete-post" data-id="${escapeHtml(p.id)}">Burahin</button></td></tr>`).join('') || '<tr><td colspan="8">Walang post.</td></tr>';
+}
+async function preserveVotesAndDelete(ids, ownOnly) {
+  let reason='Hindi na-delete ang post.';
+  const result=await runTransaction(firebase.database().ref(),root=>{
+    if(!root) return;
+    const posts=root.dagli_posts || {},users=root.dagli_users || {};
+    for(const id of ids){const post=posts[id];if(!post)continue;if(ownOnly && (!currentUser || post.username!==currentUser.username)){reason='Sarili mong post lang ang maaari mong burahin.';return;}
+      for(const username of voterNames(post)){const user=users[username];if(!user)continue;const marker=post.voters[username],section=(marker && marker.section)||post.section;user.voteHistory=user.voteHistory || {};if(!user.voteHistory[section]) user.voteHistory[section]={postId:id,title:post.title || '',author:post.username || '',votedAt:number(marker && marker.votedAt)};}
+      delete posts[id];
     }
-
-    function deleteDirect(id) {
-      if (confirm("Sigurado ka bang nais burahin ang dagling ito?")) {
-        db.child(id).remove();
-      }
-    }
+    return root;
+  });
+  if(!result.committed)throw new Error(reason);
+}
+async function deleteMyOwnPost(id) {
+  if(!currentUser || !allPostsData[id] || allPostsData[id].username!==currentUser.username){notify('Sarili mong post lang ang maaari mong burahin.',true);return;}
+  if(!confirm('Burahin ang sarili mong post? Mawawala rin ang comments nito.'))return;
+  try{await preserveVotesAndDelete([id],true);notify('Nabura ang post.');}catch(e){notify('Hindi nabura ang post. Subukan muli.',true);}
+}
+async function deleteDirect(id) {
+  if(!confirm('Burahin ang post at comments nito?'))return;
+  try{await preserveVotesAndDelete([id],false);notify('Nabura ang post.');}catch(e){notify('Hindi nabura ang post. Subukan muli.',true);}
+}
+async function batchDeleteSelected() {
+  const ids=[...document.querySelectorAll('.post-check:checked')].map(el=>el.value);
+  if(!ids.length || !confirm(`Burahin ang ${ids.length} napiling post at comments nito?`))return;
+  try{await preserveVotesAndDelete(ids,false);document.getElementById('selectAllBox').checked=false;notify('Nabura ang napiling posts.');}catch(e){notify('Hindi nabura ang posts. Subukan muli.',true);}
+}
+async function saveProfileChanges() {
+  if(!currentUser)return;
+  const old=currentUser.username;
+  const username=document.getElementById('editUsername').value.trim().toLowerCase();
+  const lastName=document.getElementById('editLastName').value.trim(),firstInitial=document.getElementById('editFirstInitial').value.trim(),gender=document.getElementById('editGender').value,section=document.getElementById('editSection').value,pin=document.getElementById('editPin').value.trim();
+  const status=document.getElementById('editStatusMsg');
+  if(!/^[a-z0-9_]{3,20}$/.test(username)||!lastName||!firstInitial||!/^\d{4}$/.test(pin)||!BOARD_SECTIONS.includes(section)){status.textContent='Pakisuri ang username, pangalan, section, at 4-digit PIN.';return;}
+  let reason='Hindi nai-save ang profile.';status.textContent='Sine-save…';
+  try{const result=await runTransaction(firebase.database().ref(),root=>{
+    if(!root || !root.dagli_users || !root.dagli_users[old])return;
+    const users=root.dagli_users,posts=root.dagli_posts || {};
+    if(username!==old && users[username]){reason='May gumagamit na ng username.';return;}
+    users[username]={...users[old],username,lastName,firstInitial,gender,section,pin};if(username!==old)delete users[old];
+    Object.values(users).forEach(u=>Object.values(u.voteHistory || {}).forEach(v=>{if(v.author===old)v.author=username;}));
+    Object.values(posts).forEach(p=>{if(p.username===old){Object.keys(p.voters || {}).forEach(voter=>{if(p.voters[voter]===true)p.voters[voter]={section:p.section};});Object.assign(p,{username,lastName,firstInitial,gender,section});}
+      for(const key of ['voters','hearters'])if(username!==old && p[key] && p[key][old]){if(key==='voters' && p[key][old]===true)p[key][old]={section:p.section};p[key][username]=p[key][old];delete p[key][old];}
+      Object.values(p.comments || {}).forEach(c=>{if(commentOwner(c)===old){c.authorUsername=username;c.author='@'+username;}});
+    });return root;
+  });
+  if(!result.committed){status.textContent=reason;return;}
+  const root=result.snapshot.val();allUsersData=root.dagli_users || {};allPostsData=root.dagli_posts || {};currentUser=allUsersData[username];localStorage.setItem('dagli_auth_session',JSON.stringify({username:currentUser.username,createdAt:currentUser.createdAt}));legacyUpdateAuthUI();renderFeed();renderLeaderboard();status.textContent='Nai-save ang profile, posts, votes, at comments.';
+  }catch(e){status.textContent='Hindi nai-save. Subukan muli.';}
+}
+function initBoardUpgrade() {
+  document.getElementById('feedSort').addEventListener('change',event=>{feedSort=event.target.value;renderFeed();});
+  document.getElementById('feedSection').addEventListener('change',event=>{feedSection=event.target.value;renderFeed();});
+  document.getElementById('feedSearch').addEventListener('input',event=>{feedSearch=event.target.value.trim().toLocaleLowerCase();renderFeed();});
+  document.getElementById('postColor').addEventListener('change',event=>{document.getElementById('colorPreview').className='color-preview box-'+event.target.value;});
+  document.getElementById('postKind').addEventListener('change',event=>{document.getElementById('btnSubmitPost').textContent=event.target.value==='announcement'?'I-post ang Anunsyo':'I-post ang Dagli';});
+  document.addEventListener('click',event=>{const button=event.target.closest('[data-action]');if(!button)return;const id=button.dataset.id,username=button.dataset.username;
+    const actions={'vote':()=>upvote(id),'heart':()=>heartReaction(id),'delete-own':()=>deleteMyOwnPost(id),'admin-delete-post':()=>deleteDirect(id),'admin-edit':()=>adminEditStudentDetails(username),'admin-pin':()=>adminResetPin(username),'admin-delete':()=>adminDeleteUser(username)};
+    if(actions[button.dataset.action])actions[button.dataset.action]();
+  });
+  document.addEventListener('submit',event=>{if(event.target.matches('.comment-form')){event.preventDefault();submitComment(event.target.dataset.postId,event.target);}});
+  document.addEventListener('click',event=>{const jump=event.target.closest('.profile-jumps a');if(jump){event.preventDefault();const el=document.getElementById(jump.getAttribute('href').slice(1));if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}});
+  window.addEventListener('hashchange',()=>{if(location.hash.startsWith('#/'))showRoute();});
+  showRoute();renderFeed();
+}
 
     // INITIALIZE SESSION
     checkExistingSession();
+    initBoardUpgrade();
   </script>
 </body>
 </html>
